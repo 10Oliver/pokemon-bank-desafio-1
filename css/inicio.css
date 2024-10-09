@@ -1,0 +1,27 @@
+.custom-navbar {
+  background-color: #1C497E !important;
+}
+
+a {
+  text-decoration: none !important;
+  padding: 0px 20px;
+}
+
+.mdi-actions {
+  font-size: 64pt !important;
+}
+
+.action-section>div {
+  width: 24% !important;
+}
+
+.logout-btn {
+  width: 200px;
+  padding: 10px 10px 10px 20px !important;
+  text-align: left !important;
+  text-decoration: none;
+}
+
+.logout-btn>span {
+  font-size: 14pt;
+}

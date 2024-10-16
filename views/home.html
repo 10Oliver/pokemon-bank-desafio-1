@@ -21,98 +21,217 @@
   <!--Barra de navegación-->
   <div id="navbar-placeholder"></div>
 
-  <!--Sección Hero-->
-  <section class="hero container p-5">
-    <div class="hero w-100 pb-5 d-flex flex-column">
-      <span class="h4">¡Bienvenido/a de nuevo! <span class="fw-bold h5" id="username">Usuario</span></span>
-      <span class="h6">Nº <span id="account-number">000000000000000</span></span>
-    </div>
+  <!--Contenedor Principal-->
+  <div class="flex-grow-1">
 
-    <div class="container-lg">
-      <div class="row justify-content-between align-items-center">
-        <div class=" col-md-8 col-lg-6 text-center text-md-start">
-          <h1>
-            <div class="display-6 fw-semibold">Gestiona tus finanzas de manera rápida y segura con Pokemon Bank!</div>
-          </h1>
-          <a href="#opciones" class="btn btn-secondary btn-md mt-4">Empezar</a>
+
+    <!--Sección Hero-->
+    <section class="hero container p-5">
+      <div class="hero w-100 pb-5 d-flex flex-column">
+        <span class="h4">¡Bienvenido/a de nuevo! <span class="fw-bold h5" id="username">Usuario</span></span>
+        <span class="h6">Nº <span id="account-number">000000000000000</span></span>
+      </div>
+
+      <div class="container-lg">
+        <div class="row justify-content-between align-items-center">
+          <div class=" col-md-8 col-lg-6 text-center text-md-start">
+            <h1>
+              <div class="display-6 fw-semibold">Gestiona tus finanzas de manera rápida y segura con Pokemon Bank!</div>
+            </h1>
+            <a href="#opciones" class="btn btn-secondary btn-md mt-4">Empezar</a>
+          </div>
+
+          <div class="col-sm-5 col-md-4 col-lg-5">
+            <div class="">
+              <img src="../assets/025.png" alt="Pikachu" class="img-fluid d-none d-md-block">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!--Menu-->
+    <section id="opciones" class="bg-light py-5">
+      <div class="container-lg">
+        <div class="text-center">
+          <h2>Opciones</h2>
+          <p class="lead text-muted mx-5">Puedes realizar depósitos, retiros, consultar tu saldo y pagar tus servicios
+            en un solo lugar.</p>
         </div>
 
-        <div class="col-sm-5 col-md-4 col-lg-5">
-          <div class="">
-            <img src="../assets/025.png" alt="Pikachu" class="img-fluid d-none d-md-block">
+        <div class="row m-5 align-items-center justify-content-center g-3">
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0">
+              <div class="card-body text-center py-4">
+                <span class="mdi mdi-piggy-bank h1 text-warning"></span>
+                <h4 class="card-title">Depósito</h4>
+                <button class="btn btn-outline-primary btn-lg mt-3" data-bs-toggle="modal"
+                  data-bs-target="#modalDeposito">Ir</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0">
+              <div class="card-body text-center py-4">
+                <span class="mdi mdi-cash h1 text-warning"></span>
+                <h4 class="card-title">Retiro</h4>
+                <button class="btn btn-outline-primary btn-lg mt-3" data-bs-toggle="modal"
+                  data-bs-target="#modalRetiro">Ir</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0">
+              <div class="card-body text-center py-4">
+                <span class="mdi mdi-scale-balance h1 text-warning"></span>
+                <h4 class="card-title">Consultar saldo</h4>
+                <button class="btn btn-outline-primary btn-lg mt-3" data-bs-toggle="modal"
+                  data-bs-target="#modalSaldo">Ir</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="card border-0">
+              <div class="card-body text-center py-4">
+                <span class="mdi mdi-cash-register h1 text-warning"></span>
+                <h4 class="card-title">Pagar servicios</h4>
+                <button class="btn btn-outline-primary btn-lg mt-3" data-bs-toggle="modal"
+                  data-bs-target="#modalServicios">Ir</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!--Modal Depósito-->
+    <div class="modal fade" id="modalDeposito" tabindex="-1" aria-labelledby="modalDepositoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalDepositoLabel">Depósito</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="montoDeposito" class="form-label">Monto a depositar</label>
+                <input type="number" class="form-control" id="montoDeposito">
+              </div>
+              <div class="mb-3">
+                <label for="categoriaDeposito" class="form-label">Categoría</label>
+                <select class="form-select" id="categoriaDeposito">
+                  <option value="sueldo">Sueldo</option>
+                  <option value="transferencia">Transferencia bancaria</option>
+                  <option value="ahorros">Ahorros</option>
+                  <option value="otros">Otros</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="finalizarTransaccion('deposito')">Confirmar
+                Depósito</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal Retiro-->
+    <div class="modal fade" id="modalRetiro" tabindex="-1" aria-labelledby="modalRetiroLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalRetiroLabel">Retiro</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="montoRetiro" class="form-label">Monto a retirar</label>
+                <input type="number" class="form-control" id="montoRetiro">
+              </div>
+              <div class="mb-3">
+                <label for="categoriaRetiro" class="form-label">Categoría</label>
+                <select class="form-select" id="categoriaRetiro">
+                  <option value="supermercado">Supermercado</option>
+                  <option value="educacion">Educacion</option>
+                  <option value="entretenimiento">Entretenimiento</option>
+                  <option value="salud">Salud</option>
+                  <option value="servicios">Servicios públicos</option>
+                  <option value="otros">Otros</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-primary" onclick="finalizarTransaccion('retiro')">Confirmar
+                Retiro</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
 
-  </section>
-
-  <!--Menu-->
-  <section id="opciones" class="bg-light py-5">
-    <div class="container-lg">
-      <div class="text-center">
-        <h2>Opciones</h2>
-        <p class="lead text-muted">Puedes realizar depósitos, retiros, pagar tus servicios y consultar tu saldo en un
-          solo lugar.</p>
-      </div>
-
-      <div class="row m-5 align-items-center justify-content-center g-3">
-        <div class="col-md-6 col-lg-6 col-xl-3">
-          <div class="card border-0">
-            <div class="card-body text-center py-4">
-              <span class="mdi mdi-piggy-bank h1 text-warning"></span>
-              <h4 class="card-title">Depósito</h4>
-              <a href="#deposito" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
-            </div>
+    <!--Modal Saldo-->
+    <div class="modal fade" id="modalSaldo" tabindex="-1" aria-labelledby="modalSaldoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalSaldoLabel">Consulta de Saldo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Tu saldo actual es: $0000.00</p>
           </div>
         </div>
-
-        <div class="col-md-6 col-lg-6 col-xl-3">
-          <div class="card border-0">
-            <div class="card-body text-center py-4">
-              <span class="mdi mdi-cash h1 text-warning"></span>
-              <h4 class="card-title">Retiro</h4>
-              <a href="#retiro" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-6 col-xl-3">
-          <div class="card border-0">
-            <div class="card-body text-center py-4">
-              <span class="mdi mdi-scale-balance h1 text-warning"></span>
-              <h4 class="card-title">Consultar saldo</h4>
-              <a href="#saldo" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-6 col-lg-6 col-xl-3">
-          <div class="card border-0">
-            <div class="card-body text-center py-4">
-              <span class="mdi mdi-cash-register h1 text-warning"></span>
-              <h4 class="card-title">Pagar servicios</h4>
-              <a href="#servicios" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
-  </section>
 
-  <!--Formulario Depósito-->
+    <!--Modal Servicios-->
+    <div class="modal fade" id="modalServicios" tabindex="-1" aria-labelledby="modalServiciosLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalServiciosLabel">Pago de Servicios</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="servicio" class="form-label">Servicio a pagar</label>
+                <select class="form-select" id="servicio">
+                  <option value="energia">Energía Eléctrica</option>
+                  <option value="internet">Internet</option>
+                  <option value="telefonia">Telefonía</option>
+                  <option value="agua">Agua potable</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="montoServicio" class="form-label">Monto a pagar</label>
+                <input type="number" class="form-control" id="montoServicio">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="finalizarTransaccion('servicios')">Confirmar
+                Pago</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <!--Formulario Retiro-->
-
-  <!--Formulario Saldo-->
-
-  <!--Formulario Servicios-->
 
 
 
 
-  <!--
+
+
+
+    </section>
+
+
+
+
+
+    <!--
   <div class="row action-section d-flex justify-content-between">
     <a href="actions/deposit.html" class="card text-center py-5">
       <span class="mdi mdi-piggy-bank h1 text-warning"></span>
@@ -133,9 +252,10 @@
   </div>
   -->
 
+  </div>
 
   <!--Botón de Cerrar Sesión-->
-  <a href="../index.html" class="btn btn-danger logout-btn position-absolute bottom-0 end-0 mb-3 me-3">
+  <a href="../index.html" class="btn btn-danger logout-btn w-100 text-center p-3">
     <span class="mdi mdi-logout text-light"></span>
     <span class="text-light">Cerrar sesión</span>
   </a>

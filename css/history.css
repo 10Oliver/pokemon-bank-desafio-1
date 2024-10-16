@@ -1,5 +1,56 @@
+.number-column {
+  width: 10%;
+}
 
-tbody>tr>th {
-  color: gray;
-  font-weight: 500 !important;
+.transaction-column {
+  width: 20%;
+}
+
+.amount-column {
+  width: 15%;
+}
+
+.category-column {
+  width: 20%;
+}
+
+.date-column {
+  width: 20%;
+}
+
+.icon {
+  width: 37px;
+  height: 37px;
+}
+
+.deposit-icon {
+  background-color: #a4bded;
+}
+
+.deposit-icon>span {
+  color: #1B53BA;
+}
+
+.saving-icon {
+  background-color: #99eeb1;
+}
+
+.saving-icon>span {
+  color: #1da444;
+}
+
+.withdraw-icon {
+  background-color: #fbeab1;
+}
+
+.withdraw-icon>span {
+  color: #ddad10 !important;
+}
+
+.school-icon {
+  background-color: #DDD;
+}
+
+.school-icon>span {
+  color: black;
 }

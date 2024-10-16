@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link rel="stylesheet" href="../css/inicio.css">
   <link rel="stylesheet" href="../css/index.css">
@@ -16,48 +16,136 @@
   <title>Pokemon Bank</title>
 </head>
 
-<body class="vh-100 overflow-hidden custom-background">
+<body class="custom-background">
 
+  <!--Barra de navegación-->
   <div id="navbar-placeholder"></div>
 
-  <!--Contenido principal-->
-  <section class="container py-5">
-    <div class="w-100 pb-5 d-flex flex-column">
-      <span class="h4">¡Bienvenido de vuelta! <span class="fw-bold h5" id="username">Nombre del usuario</span></span>
-      <span class="h5">Número de cuenta: <span id="account-number">000000000000000</span></span>
+  <!--Sección Hero-->
+  <section class="hero container p-5">
+    <div class="hero w-100 pb-5 d-flex flex-column">
+      <span class="h4">¡Bienvenido/a de nuevo! <span class="fw-bold h5" id="username">Usuario</span></span>
+      <span class="h6">Nº <span id="account-number">000000000000000</span></span>
     </div>
-    <div class="row action-section d-flex justify-content-between">
-      <a href="actions/deposit.html" class="card text-center py-5">
-        <span class="mdi mdi-piggy-bank h1 text-warning"></span>
-        <span class="h1">Depósitos</span>
-      </a>
-      <a href="actions/withdraw.html" class="card text-center py-5">
-        <span class="mdi mdi-cash h1 text-warning"></span>
-        <span class="h1">Retiros</span>
-      </a>
-      <a href="actions/check_balance.html" class="card text-center py-5">
-        <span class="mdi mdi-scale-balance h1 text-warning"></span>
-        <span class="h1">Consultar saldo</span>
-      </a>
-      <a href="actions/pay_services.html" class="card text-center py-5">
-        <span class="mdi mdi-cash-register h1 text-warning"></span>
-        <span class="h1">Pagar servicios</span>
-      </a>
+
+    <div class="container-lg">
+      <div class="row justify-content-between align-items-center">
+        <div class=" col-md-8 col-lg-6 text-center text-md-start">
+          <h1>
+            <div class="display-6 fw-semibold">Gestiona tus finanzas de manera rápida y segura con Pokemon Bank!</div>
+          </h1>
+          <a href="#opciones" class="btn btn-secondary btn-md mt-4">Empezar</a>
+        </div>
+
+        <div class="col-sm-5 col-md-4 col-lg-5">
+          <div class="">
+            <img src="../assets/025.png" alt="Pikachu" class="img-fluid d-none d-md-block">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!--Menu-->
+  <section id="opciones" class="bg-light py-5">
+    <div class="container-lg">
+      <div class="text-center">
+        <h2>Opciones</h2>
+        <p class="lead text-muted">Puedes realizar depósitos, retiros, pagar tus servicios y consultar tu saldo en un
+          solo lugar.</p>
+      </div>
+
+      <div class="row m-5 align-items-center justify-content-center g-3">
+        <div class="col-md-6 col-lg-6 col-xl-3">
+          <div class="card border-0">
+            <div class="card-body text-center py-4">
+              <span class="mdi mdi-piggy-bank h1 text-warning"></span>
+              <h4 class="card-title">Depósito</h4>
+              <a href="#deposito" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-xl-3">
+          <div class="card border-0">
+            <div class="card-body text-center py-4">
+              <span class="mdi mdi-cash h1 text-warning"></span>
+              <h4 class="card-title">Retiro</h4>
+              <a href="#retiro" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-xl-3">
+          <div class="card border-0">
+            <div class="card-body text-center py-4">
+              <span class="mdi mdi-scale-balance h1 text-warning"></span>
+              <h4 class="card-title">Consultar saldo</h4>
+              <a href="#saldo" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-xl-3">
+          <div class="card border-0">
+            <div class="card-body text-center py-4">
+              <span class="mdi mdi-cash-register h1 text-warning"></span>
+              <h4 class="card-title">Pagar servicios</h4>
+              <a href="#servicios" class="btn btn-outline-primary btn-lg mt-3">Ir</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
+  <!--Formulario Depósito-->
+
+  <!--Formulario Retiro-->
+
+  <!--Formulario Saldo-->
+
+  <!--Formulario Servicios-->
+
+
+
+
+  <!--
+  <div class="row action-section d-flex justify-content-between">
+    <a href="actions/deposit.html" class="card text-center py-5">
+      <span class="mdi mdi-piggy-bank h1 text-warning"></span>
+      <span class="h1">Depósitos</span>
+    </a>
+    <a href="actions/withdraw.html" class="card text-center py-5">
+      <span class="mdi mdi-cash h1 text-warning"></span>
+      <span class="h1">Retiros</span>
+    </a>
+    <a href="actions/check_balance.html" class="card text-center py-5">
+      <span class="mdi mdi-scale-balance h1 text-warning"></span>
+      <span class="h1">Consultar saldo</span>
+    </a>
+    <a href="actions/pay_services.html" class="card text-center py-5">
+      <span class="mdi mdi-cash-register h1 text-warning"></span>
+      <span class="h1">Pagar servicios</span>
+    </a>
+  </div>
+  -->
+
+
   <!--Botón de Cerrar Sesión-->
-  <a href="../index.html" class="btn btn-danger logout-btn position-absolute bottom-0 end-0 mb-5 me-5">
+  <a href="../index.html" class="btn btn-danger logout-btn position-absolute bottom-0 end-0 mb-3 me-3">
     <span class="mdi mdi-logout text-light"></span>
     <span class="text-light">Cerrar sesión</span>
   </a>
 
   <script>
     fetch('navbar.html')
-    .then(response=>response.text())
-    .then(data=> {
-      document.getElementById('navbar-placeholder').innerHTML=data;
-    });
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      });
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

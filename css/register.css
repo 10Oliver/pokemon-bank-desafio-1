@@ -1,3 +1,12 @@
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+html {
+  width: 100vw !important;
+}
+
 .card-decoration {
   position: fixed;
   height: 80%;
@@ -61,4 +70,53 @@
 
 .action-buttons>button {
   width: 45%
+}
+
+@media (max-width: 1280px) {
+  body {
+    height: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .card-form {
+    width: 90%;
+    position: relative !important;
+    padding: 2rem;
+    top: 20px;
+    transform: translateY(0%);
+    height: auto;
+  }
+
+  body {
+    height: auto;
+  }
+}
+
+@media (min-width: 621px) and (max-width: 1280px) {
+  .card-form {
+    width: 90%;
+    margin-top: 5%;
+    position: initial !important;
+    display: block;
+    padding: 2rem;
+    top: 5%;
+    transform: translateY(0%);
+    height: auto;
+  }
+
+  .card-img-form {
+    position: relative;
+    width: 90%;
+    top: 0%;
+    right: 0;
+    transform: translateY(0%);
+    margin-top: 0px !important;
+  }
+
+  .card-img-form>img {
+    height: auto;
+    width: 100%;
+    margin-left: 0%;
+  }
 }

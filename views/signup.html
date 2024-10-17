@@ -16,8 +16,8 @@
   <title>Pokemon Bank</title>
 </head>
 
-<body class="position-relative vh-100 wh-100">
-  <div class="card-decoration rounded"></div>
+<body class="position-relative vh-100 wh-100 d-block d-lg-flex d-xl-block flex-column align-items-center">
+  <div class="card-decoration d-none d-xl-inline rounded"></div>
 
   <div class="card-form rounded">
     <h6 class="title-text">¡Crea una <span>Cuenta</span>!</h6>
@@ -27,27 +27,27 @@
       alcanzar tus metas.
     </p>
     <form class="row mt-5">
-      <div class="col-6 mb-5">
+      <div class="col-12 col-sm-6 mb-5">
         <input type="text" class="form-control" placeholder="Nombre de usuario" name="username"
           aria-label="Nombre de usuario">
       </div>
-      <div class="col-6 mb-5">
+      <div class="col-12 col-sm-6 mb-5">
         <input type="text" class="form-control" placeholder="Número de teléfono" name="phone" aria-label="Teléfono">
       </div>
-      <div class="col-6 mb-5">
+      <div class="col-12 col-sm-6 mb-5">
         <input type="password" class="form-control" placeholder="Pin" name="pin" aria-label="Pin">
       </div>
-      <div class="col-6 mb-5">
+      <div class="col-12 col-sm-6 mb-5">
         <input type="password" class="form-control" placeholder="Confirmar pin" name="confirm_pin"
           aria-label="Confirmar pin">
       </div>
-      <div class="col-7 mt-3 d-flex justify-content-between action-buttons">
+      <div class="col-12 col-md-7 mt-3 d-flex justify-content-between action-buttons">
         <button class="py-3 bg-light border-0 rounded h5">Regresar</button>
         <button class="py-3 border-0 rounded text-light h5 create-button">¡Crear!</button>
       </div>
     </form>
   </div>
-  <div class="card-img-form rounded d-flex justify-content-center align-items-center">
+  <div class="card-img-form rounded d-none d-sm-flex d-lg-flex justify-content-center align-items-center">
     <img src="../assets/register/226-wallpaper.png" alt="">
   </div>
 

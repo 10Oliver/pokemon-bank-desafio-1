@@ -1,0 +1,64 @@
+.card-decoration {
+  position: fixed;
+  height: 80%;
+  width: 7%;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #c8dbff;
+}
+
+.card-form {
+  position: fixed;
+  height: 80%;
+  width: 55%;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #c8dbff;
+  padding: 4rem 12rem 4rem 4rem;
+}
+
+.card-img-form {
+  position: fixed;
+  width: 40%;
+  height: 60%;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 5%;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.card-img-form>img {
+  height: 120%;
+  margin-left: 5%
+}
+
+.form-control {
+  padding: .75rem !important;
+  font-size: 1.1rem !important;
+}
+
+.account-text {
+  color: #1B53BA;
+  font-size: 36pt;
+  font-weight: 800;
+}
+
+.create-button {
+  background-color: #1B53BA;
+}
+
+.title-text {
+  font-size: 56px;
+  font-weight: 800;
+}
+
+.title-text>span {
+  color: #1B53BA;
+}
+
+.action-buttons>button {
+  width: 45%
+}

@@ -20,3 +20,60 @@
 a {
   text-decoration: none !important;
 }
+
+/* Tarjeta de Saldo*/
+#modalSaldo .card-balance {
+  background-color: #009dff;
+  border-radius: 15px;
+  padding: 20px;
+  color: white;
+  max-width: 300px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  min-height: 180px;
+}
+
+#modalSaldo .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+#modalSaldo .card-header span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+#modalSaldo .card-icon {
+  font-size: 24px;
+}
+
+#modalSaldo .card-account {
+  margin-bottom: 20px;
+}
+
+#modalSaldo .account-number {
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+#modalSaldo .card-body {
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  align-items: baseline;
+}
+
+#modalSaldo .currency {
+  font-size: 36px;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+#modalSaldo .balance {
+  font-size: 36px;
+  font-weight: 600;
+}

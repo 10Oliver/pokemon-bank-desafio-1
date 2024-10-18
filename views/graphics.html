@@ -13,10 +13,16 @@
   <title>Pokemon Bank</title>
 </head>
 
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+</style>
+
 <body class="d-flex flex-column vh-100 custom-background">
 
-<div id="navbar-placeholder"></div>
- 
+  <div id="navbar-placeholder"></div>
+
   <div class="container py-5">
     <h1 class="my-5 text-center">Gráficas</h1>
     <div class="d-flex justify-content-center align-items-center" style="width: 65%; margin: 0 auto;">
@@ -27,11 +33,11 @@
 
   <script>
     fetch('navbar.html')
-    .then(response=>response.text())
-    .then(data=> {
-      document.getElementById('navbar-placeholder').innerHTML=data;
-    })
-    .catch(error=>console.log('Error'. error));
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+      })
+      .catch(error => console.log('Error'.error));
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

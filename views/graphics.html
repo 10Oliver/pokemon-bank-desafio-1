@@ -19,6 +19,26 @@
   body {
     font-family: 'Poppins', sans-serif;
   }
+  #container py-5{
+    margin-top: 28px;
+  }
+  #pie-chart-1, #pie-chart-2 {
+    width: 320px !important;
+    height: 320px !important;
+    max-width: 320px;
+    max-height: 320px;
+  }
+  #gastos, #ingresos{
+    padding: 10px 45px !important;
+    margin: 15px !important;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+    background-color: #103cb4;
+    color: white;
+  }
+  #gastos-list, #ingresos-list {
+    margin-top: 28px;
+  }
 </style>
 
 <body class="d-flex flex-column vh-100 custom-background">
@@ -29,6 +49,20 @@
     <h1 class="my-5 text-center">Gráficas</h1>
     <div class="d-flex justify-content-center align-items-center" style="width: 65%; margin: 0 auto;">
       <canvas id="graphics-chart"></canvas>
+    </div>
+
+    <!--Graficos de pastel-->
+    <div class="d-flex justify-content-around align-items-center-center" style="margin-top: 50px;">
+      <div>
+        <div id="gastos">Gastos por categoria</div>
+        <canvas id="pie-chart-1"></canvas>
+        <div id="gastos-list"></div>
+      </div>
+      <div>
+        <div id="ingresos">Ingresos por categoria</div>
+        <canvas id="pie-chart-2"></canvas>
+        <div id="ingresos-list"></div>
+      </div>
     </div>
   </div>
 

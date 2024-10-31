@@ -1,3 +1,47 @@
 .btn-login {
   background-color: #FF4500 !important;
 }
+
+.login-background {
+  background-image: url("../assets/login/login-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-shadow {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.card-form {
+  width: 60%;
+  border-radius: 15px;
+  background-color: #E6E6FA;
+  z-index: 2;
+  display: flex;
+}
+
+.login-form {
+  width: 55%;
+  padding: 25px 60px;
+}
+
+.form-fields {
+  margin-top: 20px;
+}
+
+.image-form {
+  width: 45%;
+  background-image: url("../assets/login/form-image.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+}

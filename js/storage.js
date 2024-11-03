@@ -2,8 +2,8 @@
  * Global data
  */
 
-const globalExpenses = [];
-const globalIncomes = [];
+var globalExpenses = [];
+var globalIncomes = [];
 
 
 /**
@@ -37,5 +37,15 @@ const loadSession = (username) => {
     // Set active session
     localStorage.setItem("active-session", username);
 
+    // Check if exists transactions
+    const userData = JSON.parse(localStorage.getItem(username));
+
+    if (userData?.incomes) {
+        globalIncomes = globalIncomes.concat(userData.incomes);
+    }
+
+    if (userData?.expenses) {
+        globalExpenses = globalExpenses.concat(userData.expenses);
+    }
 
 }

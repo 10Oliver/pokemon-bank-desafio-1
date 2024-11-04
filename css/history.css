@@ -18,39 +18,93 @@
   width: 20%;
 }
 
+#transaction-header {
+  max-height: 80px !important;
+}
+
 .icon {
   width: 37px;
   height: 37px;
 }
 
-.deposit-icon {
-  background-color: #a4bded;
+.salary-icon {
+  background-color: #a4e8a2;
+  /* Light background color */
 }
 
-.deposit-icon>span {
-  color: #1B53BA;
+.salary-icon>span {
+  color: #4CAF50;
+  /* Primary color */
 }
 
-.saving-icon {
-  background-color: #99eeb1;
+.bank-transfer-icon {
+  background-color: #b1d0f3;
 }
 
-.saving-icon>span {
-  color: #1da444;
+.bank-transfer-icon>span {
+  color: #1688e6;
 }
 
-.withdraw-icon {
-  background-color: #fbeab1;
+.savings-icon {
+  background-color: #ffebb2;
 }
 
-.withdraw-icon>span {
-  color: #ddad10 !important;
+.savings-icon>span {
+  color: #FFC107;
 }
 
-.school-icon {
-  background-color: #DDD;
+.other-icon {
+  background-color: #d6d6d6;
 }
 
-.school-icon>span {
-  color: black;
+.other-icon>span {
+  color: #9E9E9E;
+}
+
+.groceries-icon {
+  background-color: #ffc5b2;
+}
+
+.groceries-icon>span {
+  color: #FF5722;
+}
+
+.education-icon {
+  background-color: #b2b9ff;
+}
+
+.education-icon>span {
+  color: #3F51B5;
+}
+
+.entertainment-icon {
+  background-color: #ffb2cb;
+}
+
+.entertainment-icon>span {
+  color: #E91E63;
+}
+
+.health-icon {
+  background-color: #ffb5b2;
+}
+
+.health-icon>span {
+  color: #F44336;
+}
+
+.utilities-icon {
+  background-color: #d9c2b2;
+}
+
+.utilities-icon>span {
+  color: #795548;
+}
+
+.unknow-icon {
+  background-color: #777777;
+}
+
+.unknow-icon>span {
+  color: #e3e3e3;
 }

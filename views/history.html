@@ -28,7 +28,7 @@
     <h2 class="my-5">Transacciones realizadas</h2>
 
     <!-- #region Header -->
-    <div class="container w-100 bg-light d-flex justify-content-center align-items-center py-4 rounded">
+    <div id="transaction-header" class="container w-100 bg-light d-flex justify-content-center align-items-center py-4 rounded">
       <div class="number-column fw-semibold h5 p-2">N°</div>
       <div class="transaction-column fw-semibold h5 p-2">Tipo de transacción</div>
       <div class="amount-column fw-semibold h5 p-2">Monto</div>
@@ -38,49 +38,9 @@
     <!-- #endregion -->
 
     <!-- #region Table Content -->
-    <div class="w-100 my-3">
-      <!-- Item -->
-      <div class="w-100 container bg-light d-flex justify-content-center align-items-center py-3 mb-3 rounded">
-        <div class="number-column fw-normal h6 mt-2 p-2">1</div>
-        <div class="transaction-column mt-2 p-2 d-flex align-items-center">
-          <div class="p-3 saving-icon icon d-flex me-2 justify-content-center align-items-center rounded-circle">
-            <span class="mdi mdi-bank-transfer-in h4 mb-0"></span>
-          </div>
-          <span class="fw-bold">Depósito</span>
-        </div>
-        <div class="amount-column fw-normal mt-2 p-2 d-flex flex-column">
-          <span class="h6">USD</span>
-          <span class="fw-bolder h6">$125.00</span>
-        </div>
-        <div class="category-column fw-normal h6 mt-2 p-2 d-flex align-items-center">
-          <div class="p-3 deposit-icon icon d-flex me-2 justify-content-center align-items-center rounded-circle">
-            <span class="mdi mdi-piggy-bank h4 mb-0"></span>
-          </div>
-          <span class="fw-bold">Ahorros</span>
-        </div>
-        <div class="date-column fw-normal h6 mt-2 p-2">16-10-2024 08:56:00 a.m.</div>
-      </div>
+    <div class="w-100 my-3" id="transaction-list">
+      <!-- Items -->
 
-      <div class="w-100 container bg-light d-flex justify-content-center align-items-center py-3 mb-3 rounded">
-        <div class="number-column fw-normal h6 mt-2 p-2">2</div>
-        <div class="transaction-column fw-normal h6 mt-2 p-2 d-flex align-items-center">
-          <div class="p-3 withdraw-icon icon d-flex me-2 justify-content-center align-items-center rounded-circle">
-            <span class="mdi mdi-bank-transfer-out h4 mb-0"></span>
-          </div>
-          <span class="fw-bold">Retiro</span>
-        </div>
-        <div class="amount-column fw-normal mt-2 p-2 d-flex flex-column">
-          <span class="h6">USD</span>
-          <span class="fw-bolder h6">$275.00</span>
-        </div>
-        <div class="category-column fw-normal h6 mt-2 p-2 d-flex align-items-center">
-          <div class="p-3 school-icon icon d-flex me-2 justify-content-center align-items-center rounded-circle">
-            <span class="mdi mdi-school h4 mb-0"></span>
-          </div>
-          <span class="fw-bold">Educación</span>
-        </div>
-        <div class="date-column fw-normal h6 mt-2 p-2">16-10-2024 12:47:00 p.m.</div>
-      </div>
     </div>
     <!-- #endregion -->
 
@@ -117,6 +77,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/history.js"></script>
 </body>
 
 </html>

@@ -3,6 +3,8 @@
  */
 var activeSession = "";
 var totalBalance = 0;
+var globalIncomes = [];
+var globalExpenses = [];
 
 
 /**
@@ -69,7 +71,11 @@ const registerUser = (userObject) => {
     userObject.incomes = [];
     userObject.expenses = [];
 
-    const storage = JSON.parse(localStorage.getItem("storage"));
+    let storage = JSON.parse(localStorage.getItem("storage"));
+
+    if (!storage) {
+        storage = [];
+    }
 
     storage.push(userObject);
 

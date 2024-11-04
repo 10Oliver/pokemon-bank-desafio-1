@@ -2,61 +2,17 @@
  * Global data
  */
 var activeSession = "";
-var totalBalance = 0;
-var globalIncomes = [];
-var globalExpenses = [];
 
 
 /**
  * Functions
  */
 
-const saveUserSession = () => {
-
-
-    const username = localStorage.getItem("active-session");
-
-    if (username) {
-
-        const storage = JSON.parse(localStorage.getItem("storage"));
-
-        const userPosition = storage.findIndex((user) => user.username == username);
-
-        const userData = storage[userPosition];
-
-        userData["incomes"] = globalIncomes;
-        userData["expenses"] = globalExpenses;
-
-        // Remove session
-        localStorage.removeItem("active-session");
-
-        // Save session
-        storage[userPosition] = userData;
-
-        localStorage.setItem("storage", JSON.stringify(storage));
-    }
-
-}
-
 const loadSession = (username) => {
 
     // Set active session
     localStorage.setItem("active-session", username);
 
-    // Check if exists transactions
-    const users = JSON.parse(localStorage.getItem("storage"));
-
-    const userData = users.find((user) => user.username == username);
-
-    if (userData?.incomes) {
-        globalIncomes = globalIncomes.concat(userData.incomes);
-    }
-
-    if (userData?.expenses) {
-        globalExpenses = globalExpenses.concat(userData.expenses);
-    }
-
-    totalBalance = userData.totalBalance;
     activeSession = username;
 }
 
@@ -84,44 +40,75 @@ const registerUser = (userObject) => {
 
 const saveExpense = (expenseObject) => {
 
-    const users = localStorage.getItem("storage");
+    const users = JSON.parse(localStorage.getItem("storage"));
 
-    const userData = users.find((user) => user.username == activeSession);
+    const userIndex = users.findIndex((user) => user.username == activeSession);
 
-    userData.expenses.push(expenseObject);
+    users[userIndex].expenses.push(expenseObject);
+
+    // Save transaction
+    localStorage.setItem("storage", JSON.stringify(users))
 }
 
 const saveIncomes = (incomesObject) => {
 
-    const users = localStorage.getItem("storage");
+    const users = JSON.parse(localStorage.getItem("storage"));
 
-    const userData = users.find((user) => user.username == activeSession);
+    const userIndex = users.findIndex((user) => user.username == activeSession);
 
-    userData.incomes.push(incomesObject);
+    users[userIndex].incomes.push(incomesObject);
+
+    // Save transaction
+    localStorage.setItem("storage", JSON.stringify(users));
 }
 
+/**
+ * Getters
+ */
+
+const getIncomes = () => {
+    if (activeSession) {
+        const storage = JSON.parse(localStorage.getItem("storage"));
+
+        const { incomes } = storage.find((user) => user.username == activeSession);
+
+        return incomes;
+    }
+
+    return [];
+}
+
+const getExpenses = () => {
+    if (activeSession) {
+        const storage = JSON.parse(localStorage.getItem("storage"));
+
+        const { expenses } = storage.find((user) => user.username == activeSession);
+
+        return expenses;
+    }
+
+    return [];
+}
+
+const getBalance = () => {
+    if (activeSession) {
+        const storage = JSON.parse(localStorage.getItem("storage"));
+
+        const { totalBalance } = storage.find((user) => user.username == activeSession);
+
+        return totalBalance;
+    }
+
+    return 0;
+}
 
 /**
- * Load transaction if exists active session
+ * Load active session
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    const activeSession = localStorage.getItem("active-session");
-
-    if (activeSession) {
-
-        const users = JSON.parse(localStorage.getItem("storage"));
-
-        const userData = users.find((user) => user.username = activeSession);
-
-        if (userData?.incomes) {
-            globalIncomes = globalIncomes.concat(userData.incomes);
-        }
-
-        if (userData?.expenses) {
-            globalExpenses = globalExpenses.concat(userData.expenses);
-        }
-
-        totalBalance = userData.totalBalance;
+    const session = localStorage.getItem("active-session");
+    if (session) {
+        activeSession = session;
     }
 })

@@ -1,6 +1,6 @@
 
 
 document.getElementById("logout-btn").addEventListener("click", () => {
-    saveUserSession();
+    logout();
     location.href = "../index.html";
 })

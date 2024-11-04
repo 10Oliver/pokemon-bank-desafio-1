@@ -8,6 +8,11 @@ var activeSession = "";
  * Functions
  */
 
+const logout = () => {
+    activeSession = "";
+    localStorage.removeItem("active-session");
+}
+
 const loadSession = (username) => {
 
     // Set active session

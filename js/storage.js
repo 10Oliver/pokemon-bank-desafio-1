@@ -113,7 +113,12 @@ const getBalance = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     const session = localStorage.getItem("active-session");
-    if (session) {
-        activeSession = session;
+
+    const isRegistrationPage = window.location.pathname.endsWith("/views/signup.html");
+    const isLoginPage = window.location.pathname.endsWith("/index.html");
+    if (!session && !isRegistrationPage && !isLoginPage) {
+        location.href = "../index.html";
+        return;
     }
+    activeSession = session;
 })

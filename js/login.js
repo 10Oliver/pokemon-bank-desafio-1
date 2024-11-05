@@ -1,6 +1,4 @@
-document.getElementById("login-btn").addEventListener("click", (event) => {
-    event.preventDefault();
-
+document.getElementById("login-btn").addEventListener("click", () => {
     const username = document.getElementById("username-input");
 
     const password = document.getElementById("password-input");
@@ -9,16 +7,38 @@ document.getElementById("login-btn").addEventListener("click", (event) => {
 
     const userFound = users.find((user) => user.username == username.value);
 
+    // #region Missing fields validation
+    if (!username.value) {
+        username.classList.remove("border-dark");
+        username.classList.add("red-border");
+    } else {
+        username.classList.add("border-dark");
+        username.classList.remove("red-border");
+    }
+
+    if (!password.value) {
+        password.classList.remove("border-dark");
+        password.classList.add("red-border");
+    } else {
+        password.classList.add("border-dark");
+        password.classList.remove("red-border");
+    }
+
+    if (!username.value || !password.value) {
+        showAlert("Debes de completar todo los campos", "info");
+        return;
+    }
+
+    // #endregion
 
     if (!userFound) {
-        alert("El usuario no existe");
+        showAlert("Usuario o contraseña incorrectos", "error");
         return;
     }
 
     // User exists flow
-
     if (userFound.password != password.value) {
-        alert("Contraseña invalida");
+        showAlert("Usuario o contraseña incorrectos", "error");
         return;
     }
 

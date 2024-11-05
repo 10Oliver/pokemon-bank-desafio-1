@@ -12,6 +12,16 @@ html {
   color: rgb(167, 204, 236) !important;
 }
 
+.title-text {
+  font-size: 56px;
+  font-weight: 800;
+  color: white;
+}
+
+.title-text>span {
+  color: #326bd4;
+}
+
 .signup-wallpaper {
   background-image: url("../assets/register/register-wallpaper.png");
   background-repeat: no-repeat;
@@ -69,6 +79,21 @@ html {
   margin-left: 5%
 }
 
+/* Fields styles */
+
+.show-password-position {
+  z-index: 5;
+  position: absolute;
+  top: 25%;
+  right: 25px;
+  font-size: 15pt;
+  color: rgb(167, 204, 236);
+}
+
+.show-password-position:hover {
+  cursor: pointer !important;
+}
+
 .form-control {
   padding: .75rem !important;
   font-size: 1.1rem !important;
@@ -81,29 +106,20 @@ html {
   color: rgb(225, 241, 255) !important;
 }
 
+.create-button {
+  background-color: #326bd4 !important;
+}
+
 .account-text {
   color: #1B53BA;
   font-size: 36pt;
   font-weight: 800;
 }
 
-.create-button {
-  background-color: #326bd4 !important;
-}
-
-.title-text {
-  font-size: 56px;
-  font-weight: 800;
-  color: white;
-}
-
-.title-text>span {
-  color: #326bd4;
-}
-
 .action-buttons>button {
   width: 45%
 }
+
 
 @media (max-width: 1280px) {
   body {

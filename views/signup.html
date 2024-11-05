@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="stylesheet" href="../css/register.css">
+  <link rel="stylesheet" href="../css/signup.css">
   <link rel="stylesheet" href="../css/index.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -41,14 +41,20 @@
           aria-label="Nombre de usuario">
       </div>
       <div class="col-12 col-sm-6 mb-5">
-        <input id="phone-input" type="text" class="form-control" placeholder="Número de teléfono" name="phone" aria-label="Teléfono">
+        <input id="phone-input" type="text" class="form-control" placeholder="Número de teléfono" name="phone"
+          aria-label="Teléfono">
       </div>
-      <div class="col-12 col-sm-6 mb-5">
-        <input id="password-input" type="password" class="form-control" placeholder="Contraseña" name="pin" aria-label="Pin">
+      <div class="col-12 col-sm-6 mb-5 position-relative">
+        <input id="password-input" type="password" class="form-control" placeholder="Contraseña" name="pin"
+          aria-label="Pin">
+        <span class="mdi mdi-eye-outline show-password-position" id="show-password"></span>
+        <span class="mdi mdi-eye-off-outline show-password-position d-none" id="hide-password"></span>
       </div>
-      <div class="col-12 col-sm-6 mb-5">
-        <input id="confirm-password-input" type="password" class="form-control" placeholder="Confirmar contraseña" name="confirm_pin"
-          aria-label="Confirmar contraseña">
+      <div class="col-12 col-sm-6 mb-5 position-relative">
+        <input id="confirm-password-input" type="password" class="form-control" placeholder="Confirmar contraseña"
+          name="confirm_pin" aria-label="Confirmar contraseña">
+          <span class="mdi mdi-eye-outline show-password-position" id="show-confirm-password"></span>
+          <span class="mdi mdi-eye-off-outline show-password-position d-none" id="hide-confirm-password"></span>
       </div>
       <div class="col-12 col-md-7 mt-3 d-flex justify-content-between action-buttons">
         <a href="../index.html" class="d-flex align-items-center justify-content-center btn btn-light btn-lg text-dark"

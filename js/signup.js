@@ -35,3 +35,31 @@ document.getElementById("register-btn").addEventListener("click", () => {
     alert("Usuario creado correctamente");
     location.href = "../index.html";
 }); 
+
+document.getElementById("show-password").addEventListener("click", () => {
+    document.getElementById("hide-password").classList.remove("d-none");
+    document.getElementById("show-password").classList.add("d-none");
+    // Change input type
+    document.getElementById("password-input").type = "text";
+});
+
+document.getElementById("hide-password").addEventListener("click", () => {
+    document.getElementById("hide-password").classList.add("d-none");
+    document.getElementById("show-password").classList.remove("d-none");
+    // Change input type
+    document.getElementById("password-input").type = "password";
+});
+
+document.getElementById("show-confirm-password").addEventListener("click", () => {
+    document.getElementById("hide-confirm-password").classList.remove("d-none");
+    document.getElementById("show-confirm-password").classList.add("d-none");
+    // Change input type
+    document.getElementById("confirm-password-input").type = "text";
+});
+
+document.getElementById("hide-confirm-password").addEventListener("click", () => {
+    document.getElementById("hide-confirm-password").classList.add("d-none");
+    document.getElementById("show-confirm-password").classList.remove("d-none");
+    // Change input type
+    document.getElementById("confirm-password-input").type = "password";
+});

@@ -28,6 +28,20 @@ document.getElementById("login-btn").addEventListener("click", (event) => {
     location.href = "views/home.html";
 });
 
+document.getElementById("show-password").addEventListener("click", () => {
+    document.getElementById("show-confirm-password").classList.remove("d-none");
+    document.getElementById("show-password").classList.add("d-none");
+    // Change input type
+    document.getElementById("password-input").type = "text";
+});
+
+document.getElementById("show-confirm-password").addEventListener("click", () => {
+    document.getElementById("show-password").classList.remove("d-none");
+    document.getElementById("show-confirm-password").classList.add("d-none");
+
+    document.getElementById("password-input").type = "password";
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     // Check if already exist active session
     const activeSession = localStorage.getItem("active-session");
@@ -35,4 +49,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (activeSession) {
         location.href = "views/home.html";
     }
-})
+
+    // Set greeting
+    const date = new Date();
+    const time = date.getHours();
+
+    const greeting = document.getElementById("greeting-text");
+
+    if (time < 12) {
+        greeting.textContent = "Buenos días";
+    }
+    if (time > 12 && time < 18) {
+        greeting.textContent = "Buenas tardes";
+    }
+    if (time > 18) {
+        greeting.textContent = "Buenas noches";
+    }
+});

@@ -13,6 +13,12 @@ const logout = () => {
     localStorage.removeItem("active-session");
 }
 
+const getUserInfo = () => {
+    const storage = JSON.parse(localStorage.getItem("storage"));
+    const { password, incomes, expenses, ...rest } = storage.find((user) => user.username == activeSession);
+    return {...rest};
+}
+
 const loadSession = (username) => {
 
     // Set active session
@@ -31,6 +37,7 @@ const registerUser = (userObject) => {
     userObject.totalBalance = 0;
     userObject.incomes = [];
     userObject.expenses = [];
+    userObject.accountNumber = accountNumber();
 
     let storage = JSON.parse(localStorage.getItem("storage"));
 
@@ -67,6 +74,15 @@ const saveIncomes = (incomesObject) => {
     localStorage.setItem("storage", JSON.stringify(users));
 }
 
+
+const accountNumber = () => {
+    let numeroCuenta = '';
+    for (let i = 0; i < 20; i++) {
+        // Genera un dígito aleatorio entre 0 y 9 y lo añade al número de cuenta
+        numeroCuenta += Math.floor(Math.random() * 10);
+    }
+    return numeroCuenta;
+}
 /**
  * Getters
  */

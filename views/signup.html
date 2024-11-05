@@ -50,17 +50,50 @@
         <div id="password-bar-container" class="password-secure-bar-container">
           <div id="password-bar" style="width: 4%; background-color: #ff4d4f;"></div>
         </div>
+        <div id="password-indications">
+          <p>La contraseña debe de contener:</p>
+          <div class="d-flex flex-column ms-2">
+            <div class="position-relative">
+              <span id="8-letter-wrong" class="mdi mdi-close-circle position-absolute text-danger"></span>
+              <span id="8-letter-success" class="mdi mdi-check-circle position-absolute text-success d-none"></span>
+              <span class="ms-4">Al menos 8 caracteres</span>
+            </div>
+            <div class="position-relative">
+              <span id="mayus-wrong" class="mdi mdi-close-circle position-absolute text-danger"></span>
+              <span id="mayus-success" class="mdi mdi-check-circle position-absolute text-success d-none"></span>
+              <span class="ms-4">1 letra mayúscula</span>
+            </div>
+            <div class="position-relative">
+              <span id="minus-wrong" class="mdi mdi-close-circle position-absolute text-danger"></span>
+              <span id="minus-success" class="mdi mdi-check-circle position-absolute text-success d-none"></span>
+              <span class="ms-4">1 letra minúscula</span>
+            </div>
+            <div class="position-relative">
+              <span id="number-wrong" class="mdi mdi-close-circle position-absolute text-danger"></span>
+              <span id="number-success" class="mdi mdi-check-circle position-absolute text-success d-none"></span>
+              <span class="ms-4">1 número</span>
+            </div>
+            <div class="position-relative">
+              <span id="symbol-wrong" class="mdi mdi-close-circle position-absolute text-danger"></span>
+              <span id="symbol-success" class="mdi mdi-check-circle position-absolute text-success d-none"></span>
+              <span class="ms-4">1 símbolo</span>
+            </div>
+          </div>
+          <ul>
+          </ul>
+        </div>
         <span class="mdi mdi-eye-outline show-password-position" id="show-password"></span>
         <span class="mdi mdi-eye-off-outline show-password-position d-none" id="hide-password"></span>
       </div>
       <div class="col-12 col-md-6 mb-2 mb-sm-3 mb-md-4 mb-xl-5 position-relative">
         <input id="confirm-password-input" type="password" class="form-control" placeholder="Confirmar contraseña"
           name="confirm_pin" aria-label="Confirmar contraseña">
-          <span class="mdi mdi-eye-outline show-password-position" id="show-confirm-password"></span>
-          <span class="mdi mdi-eye-off-outline show-password-position d-none" id="hide-confirm-password"></span>
+        <span class="mdi mdi-eye-outline show-password-position" id="show-confirm-password"></span>
+        <span class="mdi mdi-eye-off-outline show-password-position d-none" id="hide-confirm-password"></span>
       </div>
       <div class="col-12 col-md-7 mt-3 d-flex justify-content-between action-buttons">
-        <a href="../index.html" class="d-flex align-items-center justify-content-center btn btn-light btn-lg text-dark">Regresar</a>
+        <a href="../index.html"
+          class="d-flex align-items-center justify-content-center btn btn-light btn-lg text-dark">Regresar</a>
         <button id="register-btn" class="py-2 py-xs-3 border-0 rounded text-light h5 create-button">¡Crear!</button>
       </div>
     </div>
@@ -74,6 +107,8 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../js/alert.js"></script>
   <script src="../js/storage.js"></script>
   <script src="../js/signup.js"></script>
 </body>

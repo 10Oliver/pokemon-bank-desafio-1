@@ -5,22 +5,47 @@ document.getElementById("register-btn").addEventListener("click", () => {
     const password = document.getElementById("password-input");
     const confirmPassword = document.getElementById("confirm-password-input");
 
+    // Check for empty fields
     if (!username.value) {
-        alert("El nombre de usuario es requerido");
+        username.classList.add("red-border");
+    } else {
+        username.classList.remove("red-border");
+    }
+
+    if (!phone.value) {
+        phone.classList.add("red-border");
+    } else {
+        phone.classList.remove("red-border");
+    }
+
+    if (!password.value) {
+        password.classList.add("red-border");
+    } else {
+        password.classList.remove("red-border");
+    }
+
+    if (!confirmPassword.value) {
+        confirmPassword.classList.add("red-border");
+    } else {
+        confirmPassword.classList.remove("red-border");
+    }
+
+    if (!username.value) {
+        showAlert("El nombre de usuario es requerido", "warning");
         return;
     }
 
     if (!phone.value) {
-        alert("El número de teléfono es requerido");
+        showAlert("El número de teléfono es requerido", "warning");
         return;
     }
     if (!password.value) {
-        alert("La contraseña es requerida");
+        showAlert("La contraseña es requerida", "warning");
         return;
     }
 
     if (password.value != confirmPassword.value) {
-        alert("La contraseñas no son iguales");
+        showAlert("Las contraseñas no son iguales", "warning");
         return;
     }
 
@@ -32,7 +57,7 @@ document.getElementById("register-btn").addEventListener("click", () => {
 
     registerUser(payload);
 
-    alert("Usuario creado correctamente");
+    showAlert("Usuario creado correctamente", "success");
     location.href = "../index.html";
 });
 
@@ -77,20 +102,48 @@ document.getElementById("password-input").addEventListener("keyup", () => {
         score += lengthScore;
     }
 
+    if (password.length >= 8) {
+        document.getElementById("8-letter-success").classList.remove("d-none");
+        document.getElementById("8-letter-wrong").classList.add("d-none");
+    } else {
+        document.getElementById("8-letter-success").classList.add("d-none");
+        document.getElementById("8-letter-wrong").classList.remove("d-none");
+    }
+
     if (/[a-z]/.test(password)) {
         score += 19;
+        document.getElementById("minus-success").classList.remove("d-none");
+        document.getElementById("minus-wrong").classList.add("d-none");
+    } else {
+        document.getElementById("minus-success").classList.add("d-none");
+        document.getElementById("minus-wrong").classList.remove("d-none");
     }
 
     if (/[A-Z]/.test(password)) {
         score += 19;
+        document.getElementById("mayus-success").classList.remove("d-none");
+        document.getElementById("mayus-wrong").classList.add("d-none");
+    } else {
+        document.getElementById("mayus-success").classList.add("d-none");
+        document.getElementById("mayus-wrong").classList.remove("d-none");
     }
 
     if (/[0-9]/.test(password)) {
         score += 19;
+        document.getElementById("number-success").classList.remove("d-none");
+        document.getElementById("number-wrong").classList.add("d-none");
+    } else {
+        document.getElementById("number-success").classList.add("d-none");
+        document.getElementById("number-wrong").classList.remove("d-none");
     }
 
     if (/[^a-zA-Z0-9]/.test(password)) {
         score += 19;
+        document.getElementById("symbol-success").classList.remove("d-none");
+        document.getElementById("symbol-wrong").classList.add("d-none");
+    } else {
+        document.getElementById("symbol-success").classList.add("d-none");
+        document.getElementById("symbol-wrong").classList.remove("d-none");
     }
 
     if (score > 20 && score <= 40) {

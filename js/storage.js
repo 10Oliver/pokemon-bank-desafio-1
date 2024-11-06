@@ -59,9 +59,10 @@ const saveExpense = (expenseObject) => {
     expenseObject.date = transactionDate();
 
     users[userIndex].expenses.push(expenseObject);
+    users[userIndex].totalBalance = users[userIndex].totalBalance + expenseObject?.amount;
 
     // Save transaction
-    localStorage.setItem("storage", JSON.stringify(users))
+    localStorage.setItem("storage", JSON.stringify(users));
 }
 
 const saveIncomes = (incomesObject) => {
@@ -70,10 +71,11 @@ const saveIncomes = (incomesObject) => {
 
     const userIndex = users.findIndex((user) => user.username == activeSession);
 
-    incomesObject.number = users[userIndex].expenses.length + 1;
+    incomesObject.number = users[userIndex].incomes.length + 1;
     incomesObject.date = transactionDate();
 
     users[userIndex].incomes.push(incomesObject);
+    users[userIndex].totalBalance = users[userIndex].totalBalance + incomesObject?.amount;
 
     // Save transaction
     localStorage.setItem("storage", JSON.stringify(users));

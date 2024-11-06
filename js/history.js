@@ -1,12 +1,72 @@
 document.addEventListener("DOMContentLoaded", () => {
   const transactionList = document.getElementById("transaction-list");
+  const paginator = document.getElementById("paginator");
 
-  const expenses = getExpenses();
-  const incomes = getIncomes();
+  const transactions = getAllTransactions();
 
-  const transactions = expenses.concat(incomes);
+  const transactionToDraw = transactions.slice(0, 5);
 
-  transactions.forEach((item, index) => {
+  // For empty transactions
+  if (transactions.length == 0) {
+    const labelContainer = document.createElement("div");
+    labelContainer.classList.add("w-100", "py-4", "text-center", "h5", "bg-light");
+    labelContainer.textContent = "No se han realizado transacciones";
+    transactionList.appendChild(labelContainer);
+    return;
+  }
+
+  // Draw transaction items
+  drawItems(transactionToDraw);
+
+  // Draw paginator
+  if (transactions.length > 5) {
+    const totalPages = Math.ceil(transactions.length / 5);
+
+    const pageNumbers = new Array(totalPages).fill(undefined);
+
+    pageNumbers.forEach((_number, index) => {
+      const itemLi = document.createElement("li");
+      itemLi.classList.add("page-item", "cursor-pointer");
+      itemLi.id = `page-button-${index}`;
+      itemLi.onclick = () => movePage(index);
+
+      const numberLabel = document.createElement("a");
+      numberLabel.classList.add("page-link", "text-dark");
+      numberLabel.textContent = index + 1;
+
+      itemLi.appendChild(numberLabel);
+
+      paginator.appendChild(itemLi);
+    });
+
+    // Set first page selected
+    document.getElementById("page-button-0").classList.add("selected-page");
+  }
+});
+
+const movePage = (pageNumber) => {
+  const transaction = getAllTransactions();
+
+  const startNumber = pageNumber * 5;
+  const endNumber = (pageNumber + 1) * 5;
+  const transactionToDraw = transaction.slice(startNumber, endNumber);
+  drawItems(transactionToDraw);
+
+  // Remove all page selected clases
+  const pageButtons = document.querySelectorAll(".selected-page");
+  pageButtons.forEach((_button, index) => {
+    pageButtons[index].classList.remove("selected-page");
+  });
+
+  // Set new page selected
+  document.getElementById(`page-button-${pageNumber}`).classList.add("selected-page");
+}
+
+const drawItems = (transactions) => {
+  const transactionList = document.getElementById("transaction-list");
+  transactionList.innerHTML = ""; // Clean list
+
+  transactions.forEach((item) => {
     // Main item container
     const itemContainer = document.createElement("div");
     itemContainer.classList.add("w-100", "container", "bg-light", "d-flex", "justify-content-center", "align-items-center", "py-3", "mb-3", "rounded");
@@ -14,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // #region Number
     const itemNumber = document.createElement("div");
     itemNumber.classList.add("number-column", "fw-normal", "h6", "mt-2", "p-2");
-    itemNumber.textContent = index + 1;
+    itemNumber.textContent = item.number;
     // #endregion
 
     // #region transaction type
@@ -52,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const amountLabel = document.createElement("span");
     amountLabel.classList.add("fw-bolder", "h6");
-    amountLabel.textContent = "$125.00";
+    amountLabel.textContent = `$${item.amount}`;
 
     // Insert child
     amountContainer.appendChild(currencySymbol);
@@ -98,38 +158,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Insert completed item in list
     transactionList.appendChild(itemContainer);
   });
-});
+}
 
 
-const colors = {
-  "sueldo": "salary-icon",
-  "transferencia bancaria": "bank-transfer-icon",
-  "ahorros": "savings-icon",
-  "otros": "other-icon",
-  "supermercado": "groceries-icon",
-  "educación": "education-icon",
-  "entretenimiento": "entertainment-icon",
-  "salud": "health-icon",
-  "servicios públicos": "utilities-icon"
-};
+const getAllTransactions = () => {
+  const expenses = getExpenses();
+  const incomes = getIncomes();
 
-
-const icons = {
-  "sueldo": "mdi-cash-multiple",
-  "transferencia bancaria": "mdi-bank-transfer",
-  "ahorros": "mdi-piggy-bank",
-  "otros": "mdi-dots-horizontal",
-  "supermercado": "mdi-cart",
-  "educación": "mdi-school",
-  "entretenimiento": "mdi-movie",
-  "salud": "mdi-hospital",
-  "servicios públicos": "mdi-face-agent"
-};
+  const transactions = expenses.concat(incomes);
+  return transactions;
+}
 
 const iconColor = (value) => {
   const tag = value.toLowerCase();
   const color = colors[tag];
-  console.log(tag)
   if (!color) {
     return "unknow-icon";
   }
@@ -145,3 +187,27 @@ const iconClass = (value) => {
   return icon;
 }
 
+
+const colors = {
+  "sueldo": "salary-icon",
+  "transferencia bancaria": "bank-transfer-icon",
+  "ahorros": "savings-icon",
+  "otros": "other-icon",
+  "supermercado": "groceries-icon",
+  "educación": "education-icon",
+  "entretenimiento": "entertainment-icon",
+  "salud": "health-icon",
+  "servicios públicos": "utilities-icon"
+};
+
+const icons = {
+  "sueldo": "mdi-cash-multiple",
+  "transferencia bancaria": "mdi-bank-transfer",
+  "ahorros": "mdi-piggy-bank",
+  "otros": "mdi-dots-horizontal",
+  "supermercado": "mdi-cart",
+  "educación": "mdi-school",
+  "entretenimiento": "mdi-movie",
+  "salud": "mdi-hospital",
+  "servicios públicos": "mdi-face-agent"
+};

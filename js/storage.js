@@ -16,7 +16,7 @@ const logout = () => {
 const getUserInfo = () => {
     const storage = JSON.parse(localStorage.getItem("storage"));
     const { password, incomes, expenses, ...rest } = storage.find((user) => user.username == activeSession);
-    return {...rest};
+    return { ...rest };
 }
 
 const loadSession = (username) => {
@@ -32,7 +32,6 @@ const loadusers = () => {
 }
 
 const registerUser = (userObject) => {
-
     // Add missing fields
     userObject.totalBalance = 0;
     userObject.incomes = [];
@@ -56,6 +55,8 @@ const saveExpense = (expenseObject) => {
 
     const userIndex = users.findIndex((user) => user.username == activeSession);
 
+    expenseObject.number = users[userIndex].expenses.length + 1;
+
     users[userIndex].expenses.push(expenseObject);
 
     // Save transaction
@@ -67,6 +68,8 @@ const saveIncomes = (incomesObject) => {
     const users = JSON.parse(localStorage.getItem("storage"));
 
     const userIndex = users.findIndex((user) => user.username == activeSession);
+
+    incomesObject.number = users[userIndex].expenses.length + 1;
 
     users[userIndex].incomes.push(incomesObject);
 

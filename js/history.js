@@ -96,7 +96,7 @@ const drawItems = (transactions) => {
 
       const transactionLabel = document.createElement("span");
       transactionLabel.classList.add("fw-bold");
-      transactionLabel.textContent = item.transaction_type;
+      transactionLabel.textContent = capitalizeText(item.transaction_type);
 
       // Insert child
       transactionIconContainer.appendChild(transactionIcon);
@@ -137,7 +137,7 @@ const drawItems = (transactions) => {
 
       const categoryLabel = document.createElement("span");
       categoryLabel.classList.add("fw-bold");
-      categoryLabel.textContent = item.category;
+      categoryLabel.textContent = capitalizeText(item.category);
 
       categoryIconContainer.appendChild(categoryIcon);
       categoryContainer.appendChild(categoryIconContainer);
@@ -191,6 +191,11 @@ const iconClass = (value) => {
   return icon;
 }
 
+const capitalizeText = (text) => {
+  const firstLetter = text.charAt(0);
+  const rest = text.slice(1);
+  return firstLetter.toUpperCase() + rest;
+}
 
 const colors = {
   "sueldo": "salary-icon",

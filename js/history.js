@@ -64,99 +64,103 @@ const movePage = (pageNumber) => {
 
 const drawItems = (transactions) => {
   const transactionList = document.getElementById("transaction-list");
+  // Set default height
+  transactionList.style.height = `${transactions.length * 130}px`;
   transactionList.innerHTML = ""; // Clean list
 
-  transactions.forEach((item) => {
+  transactions.forEach((item, index) => {
     // Main item container
-    const itemContainer = document.createElement("div");
-    itemContainer.classList.add("w-100", "container", "bg-light", "d-flex", "justify-content-center", "align-items-center", "py-3", "mb-3", "rounded");
+    setTimeout(() => {
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("w-100", "container", "bg-light", "d-flex", "justify-content-center", "align-items-center", "py-3", "mb-3", "rounded", "animate-slide-in");
 
-    // #region Number
-    const itemNumber = document.createElement("div");
-    itemNumber.classList.add("number-column", "fw-normal", "h6", "mt-2", "p-2");
-    itemNumber.textContent = item.number;
-    // #endregion
+      // #region Number
+      const itemNumber = document.createElement("div");
+      itemNumber.classList.add("number-column", "fw-normal", "h6", "mt-2", "p-2");
+      itemNumber.textContent = item.number;
+      // #endregion
 
-    // #region transaction type
-    const itemTransactionTypeContainer = document.createElement("div");
-    itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
+      // #region transaction type
+      const itemTransactionTypeContainer = document.createElement("div");
+      itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
 
-    // Icon
-    const transactionColor = iconColor(item.transaction_type); // Get class for color icon
-    const transactionIconClass = iconClass(item.transaction_type);
+      // Icon
+      const transactionColor = iconColor(item.transaction_type); // Get class for color icon
+      const transactionIconClass = iconClass(item.transaction_type);
 
-    const transactionIconContainer = document.createElement("div");
-    transactionIconContainer.classList.add(transactionColor, "p-3", "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
+      const transactionIconContainer = document.createElement("div");
+      transactionIconContainer.classList.add(transactionColor, "p-3", "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
 
-    const transactionIcon = document.createElement("span");
-    transactionIcon.classList.add("mdi", transactionIconClass, "h4", "mb-0");
+      const transactionIcon = document.createElement("span");
+      transactionIcon.classList.add("mdi", transactionIconClass, "h4", "mb-0");
 
-    const transactionLabel = document.createElement("span");
-    transactionLabel.classList.add("fw-bold");
-    transactionLabel.textContent = item.transaction_type;
+      const transactionLabel = document.createElement("span");
+      transactionLabel.classList.add("fw-bold");
+      transactionLabel.textContent = item.transaction_type;
 
-    // Insert child
-    transactionIconContainer.appendChild(transactionIcon);
+      // Insert child
+      transactionIconContainer.appendChild(transactionIcon);
 
-    itemTransactionTypeContainer.appendChild(transactionIconContainer);
-    itemTransactionTypeContainer.appendChild(transactionLabel);
-    // #endregion
+      itemTransactionTypeContainer.appendChild(transactionIconContainer);
+      itemTransactionTypeContainer.appendChild(transactionLabel);
+      // #endregion
 
-    // #region amount
-    const amountContainer = document.createElement("div");
-    amountContainer.classList.add("amount-column", "fw-normal", "mt-2", "p-2", "d-flex", "flex-column");
+      // #region amount
+      const amountContainer = document.createElement("div");
+      amountContainer.classList.add("amount-column", "fw-normal", "mt-2", "p-2", "d-flex", "flex-column");
 
-    const currencySymbol = document.createElement("span");
-    currencySymbol.classList.add("h6");
-    currencySymbol.textContent = "USD";
+      const currencySymbol = document.createElement("span");
+      currencySymbol.classList.add("h6");
+      currencySymbol.textContent = "USD";
 
-    const amountLabel = document.createElement("span");
-    amountLabel.classList.add("fw-bolder", "h6");
-    amountLabel.textContent = `$${item.amount}`;
+      const amountLabel = document.createElement("span");
+      amountLabel.classList.add("fw-bolder", "h6");
+      amountLabel.textContent = `$${item.amount}`;
 
-    // Insert child
-    amountContainer.appendChild(currencySymbol);
-    amountContainer.appendChild(amountLabel);
-    // #endregion
+      // Insert child
+      amountContainer.appendChild(currencySymbol);
+      amountContainer.appendChild(amountLabel);
+      // #endregion
 
-    // #region category
-    const categoryIconClass = iconClass(item.category);
-    const categoryColor = iconColor(item.category);
+      // #region category
+      const categoryIconClass = iconClass(item.category);
+      const categoryColor = iconColor(item.category);
 
-    const categoryContainer = document.createElement("div");
-    categoryContainer.classList.add("category-column", "fw-normal", "h6", "mt-2", "p-2", "d-flex", "align-items-center");
+      const categoryContainer = document.createElement("div");
+      categoryContainer.classList.add("category-column", "fw-normal", "h6", "mt-2", "p-2", "d-flex", "align-items-center");
 
-    const categoryIconContainer = document.createElement("div");
-    categoryIconContainer.classList.add("p-3", categoryColor, "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
+      const categoryIconContainer = document.createElement("div");
+      categoryIconContainer.classList.add("p-3", categoryColor, "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
 
-    const categoryIcon = document.createElement("span");
-    categoryIcon.classList.add("mdi", categoryIconClass, "h4", "mb-0");
+      const categoryIcon = document.createElement("span");
+      categoryIcon.classList.add("mdi", categoryIconClass, "h4", "mb-0");
 
-    const categoryLabel = document.createElement("span");
-    categoryLabel.classList.add("fw-bold");
-    categoryLabel.textContent = item.category;
+      const categoryLabel = document.createElement("span");
+      categoryLabel.classList.add("fw-bold");
+      categoryLabel.textContent = item.category;
 
-    categoryIconContainer.appendChild(categoryIcon);
-    categoryContainer.appendChild(categoryIconContainer);
-    categoryContainer.appendChild(categoryLabel);
-    // #endregion
+      categoryIconContainer.appendChild(categoryIcon);
+      categoryContainer.appendChild(categoryIconContainer);
+      categoryContainer.appendChild(categoryLabel);
+      // #endregion
 
-    // #region datetime
-    const datetimeContainer = document.createElement("div");
-    datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
-    datetimeContainer.textContent = item?.date;
-    // #endregion
+      // #region datetime
+      const datetimeContainer = document.createElement("div");
+      datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
+      datetimeContainer.textContent = item?.date;
+      // #endregion
 
-    // #region Build item
-    itemContainer.appendChild(itemNumber);
-    itemContainer.appendChild(itemTransactionTypeContainer);
-    itemContainer.appendChild(amountContainer);
-    itemContainer.appendChild(categoryContainer);
-    itemContainer.appendChild(datetimeContainer);
-    // #endregion
+      // #region Build item
+      itemContainer.appendChild(itemNumber);
+      itemContainer.appendChild(itemTransactionTypeContainer);
+      itemContainer.appendChild(amountContainer);
+      itemContainer.appendChild(categoryContainer);
+      itemContainer.appendChild(datetimeContainer);
+      // #endregion
 
-    // Insert completed item in list
-    transactionList.appendChild(itemContainer);
+      // Insert completed item in list
+      transactionList.appendChild(itemContainer);
+    }, index * 100)
   });
 }
 

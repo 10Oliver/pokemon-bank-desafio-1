@@ -31,7 +31,7 @@
   cursor: pointer;
 }
 
-.selected-page > a{
+.selected-page>a {
   background-color: #1b53ba !important;
   color: white !important;
 }
@@ -114,4 +114,20 @@
 
 .unknow-icon>span {
   color: #e3e3e3;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease forwards;
 }

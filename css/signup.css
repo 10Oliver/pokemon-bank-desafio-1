@@ -111,7 +111,41 @@ input {
   border-radius: 5px;
 }
 
+#password-indications {
+  background-color: #f0f4ff;
+  padding: 10px 14px;
+  transform: translateY(-230px);
+  border-radius: 5px;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s;
+  color: #2e3a59;
+  border: 1px solid #5f7188;
+}
+
+#password-input:hover ~ #password-indications {
+  transform: translateY(-260px);
+  opacity: 1;
+  visibility: visible;
+}
+
+#password-indications:hover {
+  transform: translateY(-260px);
+  opacity: 1;
+  visibility: visible;
+}
+
+.show-password-position:hover ~ #password-indications {
+  transform: translateY(-260px);
+  opacity: 1;
+  visibility: visible;
+}
 /* Fields styles */
+
+.red-border {
+  box-shadow: 0 0 0 2px #d73232 !important;
+}
 
 .show-password-position {
   z-index: 5;
@@ -126,12 +160,21 @@ input {
   cursor: pointer !important;
 }
 
+#confirm-password-input {
+  padding: .75rem 2.5rem .75rem .75rem !important;
+}
+
+#password-input {
+  padding: .75rem 2.5rem .75rem .75rem !important;
+}
+
 .form-control {
   padding: .75rem !important;
   font-size: 1.1rem !important;
   background-color: #475ad7 !important;
   color: rgb(225, 241, 255) !important;
-  border-color: #25278e !important;
+  border-width: 0px !important;
+  z-index: 2;
 }
 
 .form-control::placeholder {

@@ -43,7 +43,7 @@
           <div class="col">
             <span class="h5">¡Bienvenido/a de nuevo!</span>
             <span class="fw-bold h5" id="username">Usuario</span><br>
-            <span class="h6">Nº <span id="account-number">000000000000000</span></span>
+            <span class="h6">Nº <span id="account-number-header">000000000000000</span></span>
           </div>
         </div>
       </div>
@@ -210,7 +210,7 @@
                 </div>
               </div>
               <div class="card-account">
-                <span class="account-number">000000000000000</span>
+                <span id="account-number">000000000000000</span>
               </div>
 
               <div class="card-body">
@@ -265,11 +265,14 @@
   <div id="footer-placeholder"></div>
 
   <!--Botón de Cerrar Sesión-->
-  <a href="../index.html" class="btn btn-danger logout-btn w-100 text-center p-3">
+  <a href="#" onclick="logoutAndRedirect()" class="btn btn-danger logout-btn w-100 text-center p-3">
     <span class="mdi mdi-logout text-light"></span>
     <span class="text-light">Cerrar sesión</span>
   </a>
 
+  <script src="../js/storage.js"></script>
+  <script src="../js/signup.js"></script>
+  <script src="../js/initialData.js"></script>
   <script src="../js/home.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

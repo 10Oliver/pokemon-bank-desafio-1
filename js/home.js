@@ -2,7 +2,6 @@
 let activeUser;
 
 document.addEventListener("DOMContentLoaded", () => {
-    //Carga la sesión activa y los datos del usuario
     const sessionUsername = localStorage.getItem("active-session");
     if (!sessionUsername) {
         window.location.href = "../index.html";
@@ -14,11 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (activeUser) {
         document.getElementById("username").textContent = activeUser.username;
-        document.getElementById("account-number").textContent = activeUser.numeroCuenta;
+        document.getElementById("account-number-header").textContent = activeUser.accountNumber;
+        document.getElementById("account-number").textContent = activeUser.accountNumber;
         updateBalanceDisplay();
-    }
-    else {
+    } else {
         console.error("Usuario activo no encontrado en el almacenamiento.");
+        window.location.href = "../index.html";
     }
 });
 
@@ -152,4 +152,8 @@ document.getElementById("logout-btn").addEventListener("click", () => {
     logout();
     location.href = "../index.html";
 })
-//s
+
+function logoutAndRedirect() {
+    logout();
+    location.href = "../index.html";
+}

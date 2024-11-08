@@ -57,8 +57,9 @@ document.getElementById("register-btn").addEventListener("click", () => {
 
     registerUser(payload);
 
+    localStorage.setItem("active-session", payload.username);
     showAlert("Usuario creado correctamente", "success");
-    location.href = "../index.html";
+    location.href = "../home.html";
 });
 
 document.getElementById("show-password").addEventListener("click", () => {

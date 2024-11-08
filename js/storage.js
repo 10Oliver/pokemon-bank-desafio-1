@@ -19,6 +19,7 @@ const getUserInfo = () => {
     return { ...rest };
 }
 
+
 const loadSession = (username) => {
 
     // Set active session
@@ -36,14 +37,9 @@ const registerUser = (userObject) => {
     userObject.totalBalance = 0;
     userObject.incomes = [];
     userObject.expenses = [];
-    userObject.numeroCuenta = accountNumber();
+    userObject.accountNumber = accountNumber();
 
-    let storage = JSON.parse(localStorage.getItem("storage"));
-
-    if (!storage) {
-        storage = [];
-    }
-
+    let storage = JSON.parse(localStorage.getItem("storage")) || [];
     storage.push(userObject);
 
     localStorage.setItem("storage", JSON.stringify(storage));
@@ -83,12 +79,12 @@ const saveIncomes = (incomesObject) => {
 
 
 const accountNumber = () => {
-    let numeroCuenta = '';
+    let accountNumber = '';
     for (let i = 0; i < 20; i++) {
         // Genera un dígito aleatorio entre 0 y 9 y lo añade al número de cuenta
-        numeroCuenta += Math.floor(Math.random() * 10);
+        accountNumber += Math.floor(Math.random() * 10);
     }
-    return numeroCuenta;
+    return accountNumber;
 }
 
 const transactionDate = () => {

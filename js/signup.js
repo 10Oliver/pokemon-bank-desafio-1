@@ -59,7 +59,7 @@ document.getElementById("register-btn").addEventListener("click", () => {
 
     localStorage.setItem("active-session", payload.username);
     showAlert("Usuario creado correctamente", "success");
-    location.href = "../home.html";
+    location.href = "../views/home.html";
 });
 
 document.getElementById("show-password").addEventListener("click", () => {
@@ -168,6 +168,7 @@ document.getElementById("password-input").addEventListener("keyup", () => {
     }
 
     const bar = document.getElementById("password-bar");
+
     bar.style.width = `${score}%`;
     bar.style.backgroundColor = color;
 });

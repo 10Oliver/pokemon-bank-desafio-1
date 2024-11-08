@@ -16,7 +16,7 @@ const logout = () => {
 const getUserInfo = () => {
     const storage = JSON.parse(localStorage.getItem("storage"));
     const { password, incomes, expenses, ...rest } = storage.find((user) => user.username == activeSession);
-    return {...rest};
+    return { ...rest };
 }
 
 const loadSession = (username) => {
@@ -37,7 +37,7 @@ const registerUser = (userObject) => {
     userObject.totalBalance = 0;
     userObject.incomes = [];
     userObject.expenses = [];
-    userObject.accountNumber = accountNumber();
+    userObject.numeroCuenta = accountNumber();
 
     let storage = JSON.parse(localStorage.getItem("storage"));
 

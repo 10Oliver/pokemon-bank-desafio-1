@@ -51,12 +51,12 @@ const saveIncomes = (incomeObject) => {
     const userIndex = users.findIndex((user) => user.username === activeSession);
 
     if (userIndex !== -1) {
-        incomeObject.date = transactionDate(); // Asegura que la fecha esté establecida
-        users[userIndex].incomes.push(incomeObject); // Guarda el ingreso completo con tipo
+        incomeObject.date = transactionDate();
+        users[userIndex].incomes.push(incomeObject);
 
         // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance += incomeObject.amount;
-        localStorage.setItem("storage", JSON.stringify(users)); // Guarda en localStorage
+        localStorage.setItem("storage", JSON.stringify(users));
     }
 };
 
@@ -66,12 +66,12 @@ const saveExpense = (expenseObject) => {
     const userIndex = users.findIndex((user) => user.username === activeSession);
 
     if (userIndex !== -1) {
-        expenseObject.date = transactionDate(); // Fecha de transacción
-        users[userIndex].expenses.push(expenseObject); // Guarda el gasto completo con tipo
+        expenseObject.date = transactionDate();
+        users[userIndex].expenses.push(expenseObject);
 
         // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance -= expenseObject.amount;
-        localStorage.setItem("storage", JSON.stringify(users)); // Guarda en localStorage
+        localStorage.setItem("storage", JSON.stringify(users));
     }
 };
 
@@ -81,12 +81,12 @@ const saveServicePayment = (servicePaymentObject) => {
     const userIndex = users.findIndex((user) => user.username === activeSession);
 
     if (userIndex !== -1) {
-        servicePaymentObject.date = transactionDate(); // Fecha de transacción
-        users[userIndex].expenses.push(servicePaymentObject); // Guarda el pago completo con tipo
+        servicePaymentObject.date = transactionDate();
+        users[userIndex].expenses.push(servicePaymentObject);
 
         // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance -= servicePaymentObject.amount;
-        localStorage.setItem("storage", JSON.stringify(users)); // Guarda en localStorage
+        localStorage.setItem("storage", JSON.stringify(users));
     }
 };
 

@@ -78,20 +78,8 @@ function finalizarTransaccion(tipo) {
             return;
         }
 
-        // Confirmación antes de realizar el pago del servicio
-        Swal.fire({
-            title: "¿Estás seguro?",
-            text: "¿Confirmas que deseas realizar el pago del servicio?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Sí, confirmar",
-            cancelButtonText: "Cancelar",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                realizarPagoServicio(monto, categoria);
-                LimpiarCamposServicio();
-            }
-        });
+        realizarPagoServicio(monto, categoria);
+        LimpiarCamposServicio();
     }
 }
 
@@ -118,9 +106,26 @@ function realizarDeposito(monto, categoria) {
             };
 
             saveIncomes(transaction);
+            activeUser.totalBalance += monto;
+            saveUserData();
             updateBalanceDisplay();
 
-            Swal.fire("Depósito exitoso", "Tu depósito se ha realizado correctamente.", "success");
+            Swal.fire({
+                title: "Depósito exitoso",
+                text: "Tu depósito se ha realizado correctamente.",
+                icon: "success"
+            }).then(() => {
+                Swal.fire({
+                    title: "¿Deseas imprimir el recibo?",
+                    showCancelButton: true,
+                    confirmButtonText: "Imprimir recibo",
+                    cancelButtonText: "Cerrar",
+                }).then((printResult) => {
+                    if (printResult.isConfirmed) {
+                        generarReciboPDF(transaction, 'Depósito');
+                    }
+                });
+            });
         }
     });
 }
@@ -153,13 +158,29 @@ function realizarRetiro(monto, categoria) {
             };
 
             saveExpense(transaction);
+            activeUser.totalBalance -= monto;
+            saveUserData();
             updateBalanceDisplay();
 
-            Swal.fire("Retiro exitoso", "Tu retiro se ha realizado correctamente.", "success");
+            Swal.fire({
+                title: "Retiro exitoso",
+                text: "Tu retiro se ha realizado correctamente.",
+                icon: "success"
+            }).then(() => {
+                Swal.fire({
+                    title: "¿Deseas imprimir el recibo?",
+                    showCancelButton: true,
+                    confirmButtonText: "Imprimir recibo",
+                    cancelButtonText: "Cerrar",
+                }).then((printResult) => {
+                    if (printResult.isConfirmed) {
+                        generarReciboPDF(transaction, 'Retiro');
+                    }
+                });
+            });
         }
     });
 }
-
 
 function realizarPagoServicio(monto, servicio) {
     if (isNaN(monto) || monto <= 0) {
@@ -189,12 +210,30 @@ function realizarPagoServicio(monto, servicio) {
             };
 
             saveServicePayment(transaction);
+            activeUser.totalBalance -= monto;
+            saveUserData();
             updateBalanceDisplay();
 
-            Swal.fire("Pago de servicio exitoso", "Tu pago se ha realizado correctamente.", "success");
+            Swal.fire({
+                title: "Pago de servicio exitoso",
+                text: "Tu pago se ha realizado correctamente.",
+                icon: "success"
+            }).then(() => {
+                Swal.fire({
+                    title: "¿Deseas imprimir el recibo?",
+                    showCancelButton: true,
+                    confirmButtonText: "Imprimir recibo",
+                    cancelButtonText: "Cerrar",
+                }).then((printResult) => {
+                    if (printResult.isConfirmed) {
+                        generarReciboPDF(transaction, 'Pago de Servicio');
+                    }
+                });
+            });
         }
     });
 }
+
 
 function generarReciboPDF(transaction, tipo) {
     const { jsPDF } = window.jspdf;
@@ -279,6 +318,9 @@ document.getElementById("modalRetiro").addEventListener("hidden.bs.modal", funct
     LimpiarCamposRetiro();
 });
 
+document.getElementById("modalSaldo").addEventListener("show.bs.modal", function () {
+    updateBalanceDisplay();
+});
 
 fetch('navbar.html')
     .then(response => response.text())

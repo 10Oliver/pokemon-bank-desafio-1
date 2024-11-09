@@ -1,3 +1,4 @@
+//signup.js
 document.getElementById("register-btn").addEventListener("click", () => {
     const username = document.getElementById("username-input");
     const phone = document.getElementById("phone-input");

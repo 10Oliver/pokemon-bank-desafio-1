@@ -3,7 +3,7 @@ const users = {
     username: "usuario",
     phone: "22455896",
     password: "12345678",
-    totalBalance: 500,
+    totalBalance: 0,
     accountNumber: "12345678901234567890",
     incomes: [],
     expenses: []

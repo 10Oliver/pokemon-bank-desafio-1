@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const itemLi = document.createElement("li");
       itemLi.classList.add("page-item", "cursor-pointer");
       itemLi.id = `page-button-${index}`;
-      itemLi.onclick = () => movePage(index, transactions);  // Pasar las transacciones a movePage
+      itemLi.onclick = () => movePage(index, transactions);
 
       const numberLabel = document.createElement("a");
       numberLabel.classList.add("page-link", "text-dark");

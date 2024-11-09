@@ -52,12 +52,16 @@ const saveIncomes = (incomeObject) => {
 
     if (userIndex !== -1) {
         incomeObject.date = transactionDate();
-        users[userIndex].incomes.push(incomeObject);
 
-        users[userIndex].totalBalance += incomeObject.amount;
+        // Verifica que el ingreso no esté duplicado antes de agregarlo
+        if (!users[userIndex].incomes.some(income => income.date === incomeObject.date && income.amount === incomeObject.amount)) {
+            users[userIndex].incomes.push(incomeObject);
+            users[userIndex].totalBalance += incomeObject.amount;
 
-        localStorage.setItem("storage", JSON.stringify(users));
-        activeUser = users[userIndex];
+            // Actualizar en localStorage y `activeUser`
+            localStorage.setItem("storage", JSON.stringify(users));
+            activeUser = users[userIndex];
+        }
     }
 };
 
@@ -68,12 +72,16 @@ const saveExpense = (expenseObject) => {
 
     if (userIndex !== -1) {
         expenseObject.date = transactionDate();
-        users[userIndex].expenses.push(expenseObject);
 
-        users[userIndex].totalBalance -= expenseObject.amount;
+        // Verifica que el gasto no esté duplicado antes de agregarlo
+        if (!users[userIndex].expenses.some(expense => expense.date === expenseObject.date && expense.amount === expenseObject.amount)) {
+            users[userIndex].expenses.push(expenseObject);
+            users[userIndex].totalBalance -= expenseObject.amount;
 
-        localStorage.setItem("storage", JSON.stringify(users));
-        activeUser = users[userIndex];
+            // Actualizar en localStorage y `activeUser`
+            localStorage.setItem("storage", JSON.stringify(users));
+            activeUser = users[userIndex];
+        }
     }
 };
 
@@ -84,12 +92,16 @@ const saveServicePayment = (servicePaymentObject) => {
 
     if (userIndex !== -1) {
         servicePaymentObject.date = transactionDate();
-        users[userIndex].expenses.push(servicePaymentObject);
 
-        users[userIndex].totalBalance -= servicePaymentObject.amount;
+        // Verifica que el pago de servicio no esté duplicado antes de agregarlo
+        if (!users[userIndex].expenses.some(payment => payment.date === servicePaymentObject.date && payment.amount === servicePaymentObject.amount)) {
+            users[userIndex].expenses.push(servicePaymentObject);
+            users[userIndex].totalBalance -= servicePaymentObject.amount;
 
-        localStorage.setItem("storage", JSON.stringify(users));
-        activeUser = users[userIndex];
+            // Actualizar en localStorage y `activeUser`
+            localStorage.setItem("storage", JSON.stringify(users));
+            activeUser = users[userIndex];
+        }
     }
 };
 

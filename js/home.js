@@ -105,24 +105,20 @@ function realizarDeposito(monto, categoria) {
                 tipo: 'Depósito'
             };
 
-            saveIncomes(transaction);  // Actualiza el balance y guarda en localStorage
-            updateBalanceDisplay();  // Actualiza el balance en pantalla
+            saveIncomes(transaction);
+            updateBalanceDisplay();
 
             Swal.fire({
                 title: "Depósito exitoso",
                 text: "Tu depósito se ha realizado correctamente.",
-                icon: "success"
-            }).then(() => {
-                Swal.fire({
-                    title: "¿Deseas imprimir el recibo?",
-                    showCancelButton: true,
-                    confirmButtonText: "Imprimir recibo",
-                    cancelButtonText: "Cerrar",
-                }).then((printResult) => {
-                    if (printResult.isConfirmed) {
-                        generarReciboPDF(transaction, 'Depósito');
-                    }
-                });
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Imprimir recibo",
+                cancelButtonText: "Cerrar",
+            }).then((printResult) => {
+                if (printResult.isConfirmed) {
+                    generarReciboPDF(transaction, 'Depósito');
+                }
             });
         }
     });
@@ -155,24 +151,20 @@ function realizarRetiro(monto, categoria) {
                 tipo: 'Retiro'
             };
 
-            saveExpense(transaction);  // Actualiza el balance y guarda en localStorage
-            updateBalanceDisplay();  // Actualiza el balance en pantalla
+            saveExpense(transaction);
+            updateBalanceDisplay();
 
             Swal.fire({
                 title: "Retiro exitoso",
                 text: "Tu retiro se ha realizado correctamente.",
-                icon: "success"
-            }).then(() => {
-                Swal.fire({
-                    title: "¿Deseas imprimir el recibo?",
-                    showCancelButton: true,
-                    confirmButtonText: "Imprimir recibo",
-                    cancelButtonText: "Cerrar",
-                }).then((printResult) => {
-                    if (printResult.isConfirmed) {
-                        generarReciboPDF(transaction, 'Retiro');
-                    }
-                });
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Imprimir recibo",
+                cancelButtonText: "Cerrar",
+            }).then((printResult) => {
+                if (printResult.isConfirmed) {
+                    generarReciboPDF(transaction, 'Retiro');
+                }
             });
         }
     });
@@ -205,24 +197,20 @@ function realizarPagoServicio(monto, servicio) {
                 tipo: 'Pago de Servicio'
             };
 
-            saveServicePayment(transaction);  // Actualiza el balance y guarda en localStorage
-            updateBalanceDisplay();  // Actualiza el balance en pantalla
+            saveServicePayment(transaction);
+            updateBalanceDisplay();
 
             Swal.fire({
                 title: "Pago de servicio exitoso",
                 text: "Tu pago se ha realizado correctamente.",
-                icon: "success"
-            }).then(() => {
-                Swal.fire({
-                    title: "¿Deseas imprimir el recibo?",
-                    showCancelButton: true,
-                    confirmButtonText: "Imprimir recibo",
-                    cancelButtonText: "Cerrar",
-                }).then((printResult) => {
-                    if (printResult.isConfirmed) {
-                        generarReciboPDF(transaction, 'Pago de Servicio');
-                    }
-                });
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Imprimir recibo",
+                cancelButtonText: "Cerrar",
+            }).then((printResult) => {
+                if (printResult.isConfirmed) {
+                    generarReciboPDF(transaction, 'Pago de Servicio');
+                }
             });
         }
     });

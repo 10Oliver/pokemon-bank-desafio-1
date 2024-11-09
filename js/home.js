@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 function validarNPE(npe) {
     const constraints = {
         npe: {
@@ -284,6 +283,7 @@ function saveUserData() {
     }
 }
 
+//Funciones para limpiar campos
 function LimpiarCamposDeposito() {
     document.getElementById("montoDeposito").value = '';
     document.getElementById("categoriaDeposito").value = '';

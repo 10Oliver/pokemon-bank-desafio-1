@@ -152,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const isRegistrationPage = window.location.pathname.endsWith("/views/signup.html");
     const isLoginPage = window.location.pathname.endsWith("/index.html");
+
     if (!session && !isRegistrationPage && !isLoginPage) {
         location.href = "../index.html";
         return;

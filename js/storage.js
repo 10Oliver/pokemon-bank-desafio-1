@@ -1,3 +1,4 @@
+//storage.js
 /**
  * Global data
  */
@@ -33,7 +34,6 @@ const loadusers = () => {
 }
 
 const registerUser = (userObject) => {
-    // Add missing fields
     userObject.totalBalance = 0;
     userObject.incomes = [];
     userObject.expenses = [];
@@ -45,37 +45,59 @@ const registerUser = (userObject) => {
     localStorage.setItem("storage", JSON.stringify(storage));
 }
 
+const saveIncomes = (incomeObject) => {
+    const users = JSON.parse(localStorage.getItem("storage")) || [];
+    const userIndex = users.findIndex((user) => user.username === activeSession);
+
+    if (userIndex !== -1) {
+        incomeObject.tipo = "Depósito";
+
+        const previousExpensesCount = users[userIndex].expenses.length;
+        const previousIncomesCount = users[userIndex].incomes.length;
+        incomeObject.number = previousExpensesCount + previousIncomesCount + 1;
+        incomeObject.date = transactionDate();
+
+        users[userIndex].incomes.push(incomeObject);
+        users[userIndex].totalBalance += incomeObject.amount;
+        localStorage.setItem("storage", JSON.stringify(users));
+    }
+};
+
 const saveExpense = (expenseObject) => {
+    const users = JSON.parse(localStorage.getItem("storage")) || [];
+    const userIndex = users.findIndex((user) => user.username === activeSession);
 
-    const users = JSON.parse(localStorage.getItem("storage"));
+    if (userIndex !== -1) {
+        expenseObject.tipo = "Retiro";
 
-    const userIndex = users.findIndex((user) => user.username == activeSession);
+        const previousExpensesCount = users[userIndex].expenses.length;
+        const previousIncomesCount = users[userIndex].incomes.length;
+        expenseObject.number = previousExpensesCount + previousIncomesCount + 1;
+        expenseObject.date = transactionDate();
 
-    expenseObject.number = users[userIndex].expenses.length + 1;
-    expenseObject.date = transactionDate();
+        users[userIndex].expenses.push(expenseObject);
+        users[userIndex].totalBalance -= expenseObject.amount;
+        localStorage.setItem("storage", JSON.stringify(users));
+    }
+};
 
-    users[userIndex].expenses.push(expenseObject);
-    users[userIndex].totalBalance = users[userIndex].totalBalance + expenseObject?.amount;
+const saveServicePayment = (servicePaymentObject) => {
+    const users = JSON.parse(localStorage.getItem("storage")) || [];
+    const userIndex = users.findIndex((user) => user.username === activeSession);
 
-    // Save transaction
-    localStorage.setItem("storage", JSON.stringify(users));
-}
+    if (userIndex !== -1) {
+        servicePaymentObject.tipo = "Pago de Servicio";
 
-const saveIncomes = (incomesObject) => {
+        const previousExpensesCount = users[userIndex].expenses.length;
+        const previousIncomesCount = users[userIndex].incomes.length;
+        servicePaymentObject.number = previousExpensesCount + previousIncomesCount + 1;
+        servicePaymentObject.date = transactionDate();
 
-    const users = JSON.parse(localStorage.getItem("storage"));
-
-    const userIndex = users.findIndex((user) => user.username == activeSession);
-
-    incomesObject.number = users[userIndex].incomes.length + 1;
-    incomesObject.date = transactionDate();
-
-    users[userIndex].incomes.push(incomesObject);
-    users[userIndex].totalBalance = users[userIndex].totalBalance + incomesObject?.amount;
-
-    // Save transaction
-    localStorage.setItem("storage", JSON.stringify(users));
-}
+        users[userIndex].expenses.push(servicePaymentObject);
+        users[userIndex].totalBalance -= servicePaymentObject.amount;
+        localStorage.setItem("storage", JSON.stringify(users));
+    }
+};
 
 
 const accountNumber = () => {
@@ -88,20 +110,7 @@ const accountNumber = () => {
 }
 
 const transactionDate = () => {
-    const fecha = new Date();
-
-    const dia = String(fecha.getDate()).padStart(2, '0');
-    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
-    const año = fecha.getFullYear();
-
-    let horas = fecha.getHours();
-    const minutos = String(fecha.getMinutes()).padStart(2, '0');
-    const segundos = String(fecha.getSeconds()).padStart(2, '0');
-
-    const ampm = horas >= 12 ? 'pm' : 'am';
-    horas = horas % 12 || 12;
-
-    return `${dia}-${mes}-${año} ${String(horas).padStart(2, '0')}:${minutos}:${segundos} ${ampm}`;
+    return new Date().toISOString(); // Devuelve la fecha en formato ISO
 }
 /**
  * Getters
@@ -141,6 +150,16 @@ const getBalance = () => {
     }
 
     return 0;
+}
+
+function saveUserData() {
+    const users = JSON.parse(localStorage.getItem("storage")) || [];
+    const userIndex = users.findIndex(user => user.username === activeUser.username);
+
+    if (userIndex !== -1) {
+        users[userIndex] = activeUser;
+        localStorage.setItem("storage", JSON.stringify(users));
+    }
 }
 
 /**

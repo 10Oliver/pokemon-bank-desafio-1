@@ -1,4 +1,4 @@
-
+//home.js
 let activeUser;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -101,7 +101,6 @@ function realizarDeposito(monto, categoria) {
         return;
     }
 
-    // Confirmación del depósito
     Swal.fire({
         title: "¿Estás seguro?",
         text: "¿Confirmas que deseas realizar el depósito?",
@@ -111,30 +110,17 @@ function realizarDeposito(monto, categoria) {
         cancelButtonText: "Cancelar",
     }).then((result) => {
         if (result.isConfirmed) {
-            // Realizar el depósito
-            activeUser.totalBalance += monto;
-            const transaction = { amount: monto, category: categoria, date: new Date().toISOString() };
-            activeUser.incomes.push(transaction);
-            saveUserData();
+            const transaction = {
+                amount: monto,
+                category: categoria,
+                date: new Date().toISOString(),
+                tipo: 'Depósito'
+            };
+
+            saveIncomes(transaction);
             updateBalanceDisplay();
 
-            // Mensaje de éxito
-            Swal.fire({
-                title: "Depósito exitoso",
-                text: "Tu depósito se ha realizado correctamente.",
-                icon: "success",
-                showCancelButton: true,
-                confirmButtonText: "Imprimir recibo",
-                cancelButtonText: "Salir",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    generarReciboPDF(transaction, "Depósito");
-                }
-                // Cerrar modal de depósito
-                const depositoModal = document.getElementById("modalDeposito");
-                const modal = bootstrap.Modal.getInstance(depositoModal);
-                modal.hide();
-            });
+            Swal.fire("Depósito exitoso", "Tu depósito se ha realizado correctamente.", "success");
         }
     });
 }
@@ -150,7 +136,6 @@ function realizarRetiro(monto, categoria) {
         return;
     }
 
-    // Confirmación del retiro
     Swal.fire({
         title: "¿Estás seguro?",
         text: "¿Confirmas que deseas realizar el retiro?",
@@ -160,30 +145,17 @@ function realizarRetiro(monto, categoria) {
         cancelButtonText: "Cancelar",
     }).then((result) => {
         if (result.isConfirmed) {
-            // Realizar el retiro
-            activeUser.totalBalance -= monto;
-            const transaction = { amount: monto, category: categoria, date: new Date().toISOString() };
-            activeUser.expenses.push(transaction);
-            saveUserData();
+            const transaction = {
+                amount: monto,
+                category: categoria,
+                date: new Date().toISOString(),
+                tipo: 'Retiro'
+            };
+
+            saveExpense(transaction);
             updateBalanceDisplay();
 
-            // Mensaje de éxito
-            Swal.fire({
-                title: "Retiro exitoso",
-                text: "Tu retiro se ha realizado correctamente.",
-                icon: "success",
-                showCancelButton: true,
-                confirmButtonText: "Imprimir recibo",
-                cancelButtonText: "Salir",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    generarReciboPDF(transaction, "Retiro");
-                }
-                // Cerrar modal de retiro
-                const retiroModal = document.getElementById("modalRetiro");
-                const modal = bootstrap.Modal.getInstance(retiroModal);
-                modal.hide();
-            });
+            Swal.fire("Retiro exitoso", "Tu retiro se ha realizado correctamente.", "success");
         }
     });
 }
@@ -200,33 +172,27 @@ function realizarPagoServicio(monto, servicio) {
         return;
     }
 
-    // Realizar el pago de servicio
-    activeUser.totalBalance -= monto;
-    const transaction = {
-        amount: monto,
-        category: servicio,
-        date: new Date().toISOString(),
-        type: "Pago de Servicio"
-    };
-    activeUser.expenses.push(transaction);
-    saveUserData();
-    updateBalanceDisplay();
-
-    // Mensaje de éxito con opción para imprimir recibo
     Swal.fire({
-        title: "Pago de servicio exitoso",
-        text: "Tu pago se ha realizado correctamente.",
-        icon: "success",
+        title: "¿Estás seguro?",
+        text: "¿Confirmas que deseas realizar el pago del servicio?",
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Imprimir recibo",
-        cancelButtonText: "Salir",
+        confirmButtonText: "Sí, confirmar",
+        cancelButtonText: "Cancelar",
     }).then((result) => {
         if (result.isConfirmed) {
-            generarReciboPDF(transaction, "Pago de Servicio");
+            const transaction = {
+                amount: monto,
+                category: servicio,
+                date: new Date().toISOString(),
+                tipo: 'Pago de Servicio'
+            };
+
+            saveServicePayment(transaction);
+            updateBalanceDisplay();
+
+            Swal.fire("Pago de servicio exitoso", "Tu pago se ha realizado correctamente.", "success");
         }
-        const servicioModal = document.getElementById("modalServicios");
-        const modal = bootstrap.Modal.getInstance(servicioModal);
-        modal.hide();
     });
 }
 

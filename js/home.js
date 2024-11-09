@@ -105,10 +105,8 @@ function realizarDeposito(monto, categoria) {
                 tipo: 'Depósito'
             };
 
-            saveIncomes(transaction);
-            activeUser.totalBalance += monto;
-            saveUserData();
-            updateBalanceDisplay();
+            saveIncomes(transaction);  // Actualiza el balance y guarda en localStorage
+            updateBalanceDisplay();  // Actualiza el balance en pantalla
 
             Swal.fire({
                 title: "Depósito exitoso",
@@ -157,10 +155,8 @@ function realizarRetiro(monto, categoria) {
                 tipo: 'Retiro'
             };
 
-            saveExpense(transaction);
-            activeUser.totalBalance -= monto;
-            saveUserData();
-            updateBalanceDisplay();
+            saveExpense(transaction);  // Actualiza el balance y guarda en localStorage
+            updateBalanceDisplay();  // Actualiza el balance en pantalla
 
             Swal.fire({
                 title: "Retiro exitoso",
@@ -209,10 +205,8 @@ function realizarPagoServicio(monto, servicio) {
                 tipo: 'Pago de Servicio'
             };
 
-            saveServicePayment(transaction);
-            activeUser.totalBalance -= monto;
-            saveUserData();
-            updateBalanceDisplay();
+            saveServicePayment(transaction);  // Actualiza el balance y guarda en localStorage
+            updateBalanceDisplay();  // Actualiza el balance en pantalla
 
             Swal.fire({
                 title: "Pago de servicio exitoso",

@@ -73,20 +73,22 @@ const drawItems = (transactions) => {
       const itemContainer = document.createElement("div");
       itemContainer.classList.add("w-100", "container", "bg-light", "d-flex", "justify-content-center", "align-items-center", "py-3", "mb-3", "rounded", "animate-slide-in");
 
-      // Muestra el número de la transacción
+      // Número de transacción
       const itemNumber = document.createElement("div");
       itemNumber.classList.add("number-column", "fw-normal", "h6", "mt-2", "p-2");
       itemNumber.textContent = item.number;
 
+      // Tipo de transacción
       const itemTransactionTypeContainer = document.createElement("div");
       itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
 
       const transactionLabel = document.createElement("span");
       transactionLabel.classList.add("fw-bold");
-      transactionLabel.textContent = capitalizeText(item.transaction_type || "");
+      transactionLabel.textContent = capitalizeText(item.tipo); // Cambiado a `tipo`
 
       itemTransactionTypeContainer.appendChild(transactionLabel);
 
+      // Monto
       const amountContainer = document.createElement("div");
       amountContainer.classList.add("amount-column", "fw-normal", "mt-2", "p-2", "d-flex", "flex-column");
 
@@ -101,6 +103,7 @@ const drawItems = (transactions) => {
       amountContainer.appendChild(currencySymbol);
       amountContainer.appendChild(amountLabel);
 
+      // Categoría
       const categoryContainer = document.createElement("div");
       categoryContainer.classList.add("category-column", "fw-normal", "h6", "mt-2", "p-2", "d-flex", "align-items-center");
 
@@ -110,10 +113,12 @@ const drawItems = (transactions) => {
 
       categoryContainer.appendChild(categoryLabel);
 
+      // Fecha y hora
       const datetimeContainer = document.createElement("div");
       datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
       datetimeContainer.textContent = item?.date || "Fecha no disponible";
 
+      // Añadir elementos al contenedor
       itemContainer.appendChild(itemNumber);
       itemContainer.appendChild(itemTransactionTypeContainer);
       itemContainer.appendChild(amountContainer);
@@ -121,7 +126,7 @@ const drawItems = (transactions) => {
       itemContainer.appendChild(datetimeContainer);
 
       transactionList.appendChild(itemContainer);
-    }, index * 100)
+    }, index * 100);
   });
 };
 
@@ -135,12 +140,10 @@ const getAllTransactions = () => {
   // Ordena las transacciones de la más antigua a la más reciente
   transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-  // Asigna un número secuencial comenzando desde 1
   transactions.forEach((transaction, index) => {
     transaction.number = index + 1;
   });
 
-  // Invertimos el orden para que las transacciones más recientes aparezcan primero
   return transactions.reverse();
 };
 

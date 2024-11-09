@@ -1,4 +1,3 @@
-//history.js
 document.addEventListener("DOMContentLoaded", () => {
   const transactionList = document.getElementById("transaction-list");
   const paginator = document.getElementById("paginator");
@@ -39,10 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
       itemLi.appendChild(numberLabel);
       paginator.appendChild(itemLi);
     }
-
-    // Seleccionar la primera página por defecto
-    document.getElementById("page-button-0").classList.add("selected-page");
   }
+
+  // Seleccionar la primera página por defecto
+  document.getElementById("page-button-0").classList.add("selected-page");
 });
 
 const movePage = (pageNumber) => {
@@ -61,7 +60,7 @@ const movePage = (pageNumber) => {
 
   // Set new page selected
   document.getElementById(`page-button-${pageNumber}`).classList.add("selected-page");
-}
+};
 
 const drawItems = (transactions) => {
   const transactionList = document.getElementById("transaction-list");
@@ -84,7 +83,7 @@ const drawItems = (transactions) => {
 
       const transactionLabel = document.createElement("span");
       transactionLabel.classList.add("fw-bold");
-      transactionLabel.textContent = capitalizeText(item.tipo); // Cambiado a `tipo`
+      transactionLabel.textContent = capitalizeText(item.tipo);
 
       itemTransactionTypeContainer.appendChild(transactionLabel);
 
@@ -130,7 +129,6 @@ const drawItems = (transactions) => {
   });
 };
 
-
 const getAllTransactions = () => {
   const expenses = getExpenses();
   const incomes = getIncomes();
@@ -153,8 +151,6 @@ const capitalizeText = (text) => {
   const rest = text.slice(1);
   return firstLetter.toUpperCase() + rest;
 };
-
-
 /*
 document.addEventListener("DOMContentLoaded", () => {
   const transactionList = document.getElementById("transaction-list");

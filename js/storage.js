@@ -45,58 +45,54 @@ const registerUser = (userObject) => {
     localStorage.setItem("storage", JSON.stringify(storage));
 }
 
+// Función para guardar ingresos (depósitos)
 const saveIncomes = (incomeObject) => {
     const users = JSON.parse(localStorage.getItem("storage")) || [];
     const userIndex = users.findIndex((user) => user.username === activeSession);
 
     if (userIndex !== -1) {
-        incomeObject.tipo = "Depósito";
+        incomeObject.date = transactionDate(); // Asegura que la fecha esté establecida
+        users[userIndex].incomes.push(incomeObject); // Guarda el ingreso completo con tipo
 
-        const previousExpensesCount = users[userIndex].expenses.length;
-        const previousIncomesCount = users[userIndex].incomes.length;
-        incomeObject.number = previousExpensesCount + previousIncomesCount + 1;
-        incomeObject.date = transactionDate();
-
-        users[userIndex].incomes.push(incomeObject);
+        // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance += incomeObject.amount;
-        localStorage.setItem("storage", JSON.stringify(users));
+        localStorage.setItem("storage", JSON.stringify(users)); // Guarda en localStorage
     }
 };
 
+// Función para guardar gastos (retiros)
 const saveExpense = (expenseObject) => {
     const users = JSON.parse(localStorage.getItem("storage")) || [];
     const userIndex = users.findIndex((user) => user.username === activeSession);
 
     if (userIndex !== -1) {
-        expenseObject.tipo = "Retiro";
+        expenseObject.date = transactionDate(); // Fecha de transacción
+        users[userIndex].expenses.push(expenseObject); // Guarda el gasto completo con tipo
 
-        const previousExpensesCount = users[userIndex].expenses.length;
-        const previousIncomesCount = users[userIndex].incomes.length;
-        expenseObject.number = previousExpensesCount + previousIncomesCount + 1;
-        expenseObject.date = transactionDate();
-
-        users[userIndex].expenses.push(expenseObject);
+        // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance -= expenseObject.amount;
-        localStorage.setItem("storage", JSON.stringify(users));
+        localStorage.setItem("storage", JSON.stringify(users)); // Guarda en localStorage
     }
 };
 
+// Función para guardar pagos de servicio
 const saveServicePayment = (servicePaymentObject) => {
     const users = JSON.parse(localStorage.getItem("storage")) || [];
     const userIndex = users.findIndex((user) => user.username === activeSession);
 
     if (userIndex !== -1) {
-        servicePaymentObject.tipo = "Pago de Servicio";
+        servicePaymentObject.date = transactionDate(); // Fecha de transacción
+        users[userIndex].expenses.push(servicePaymentObject); // Guarda el pago completo con tipo
 
-        const previousExpensesCount = users[userIndex].expenses.length;
-        const previousIncomesCount = users[userIndex].incomes.length;
-        servicePaymentObject.number = previousExpensesCount + previousIncomesCount + 1;
-        servicePaymentObject.date = transactionDate();
-
-        users[userIndex].expenses.push(servicePaymentObject);
+        // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance -= servicePaymentObject.amount;
-        localStorage.setItem("storage", JSON.stringify(users));
+        localStorage.setItem("storage", JSON.stringify(users)); // Guarda en localStorage
     }
+};
+
+// Función de fecha para asignar la fecha en formato ISO
+const transactionDate = () => {
+    return new Date().toISOString();
 };
 
 
@@ -109,9 +105,7 @@ const accountNumber = () => {
     return accountNumber;
 }
 
-const transactionDate = () => {
-    return new Date().toISOString(); // Devuelve la fecha en formato ISO
-}
+
 /**
  * Getters
  */

@@ -65,23 +65,19 @@ const movePage = (pageNumber) => {
 
 const drawItems = (transactions) => {
   const transactionList = document.getElementById("transaction-list");
-  // Set default height
   transactionList.style.height = `${transactions.length * 130}px`;
-  transactionList.innerHTML = ""; // Clean list
+  transactionList.innerHTML = ""; // Limpiar lista
 
   transactions.forEach((item, index) => {
-    // Main item container
     setTimeout(() => {
       const itemContainer = document.createElement("div");
       itemContainer.classList.add("w-100", "container", "bg-light", "d-flex", "justify-content-center", "align-items-center", "py-3", "mb-3", "rounded", "animate-slide-in");
 
-      // #region Number
+      // Muestra el número de la transacción
       const itemNumber = document.createElement("div");
       itemNumber.classList.add("number-column", "fw-normal", "h6", "mt-2", "p-2");
-      itemNumber.textContent = item.number || "N/A";
-      // #endregion
+      itemNumber.textContent = item.number;
 
-      // #region transaction type
       const itemTransactionTypeContainer = document.createElement("div");
       itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
 
@@ -89,11 +85,8 @@ const drawItems = (transactions) => {
       transactionLabel.classList.add("fw-bold");
       transactionLabel.textContent = capitalizeText(item.transaction_type || "");
 
-      // Insert transaction type
       itemTransactionTypeContainer.appendChild(transactionLabel);
-      // #endregion
 
-      // #region amount
       const amountContainer = document.createElement("div");
       amountContainer.classList.add("amount-column", "fw-normal", "mt-2", "p-2", "d-flex", "flex-column");
 
@@ -105,12 +98,9 @@ const drawItems = (transactions) => {
       amountLabel.classList.add("fw-bolder", "h6");
       amountLabel.textContent = `$${item.amount || 0}`;
 
-      // Insert amount details
       amountContainer.appendChild(currencySymbol);
       amountContainer.appendChild(amountLabel);
-      // #endregion
 
-      // #region category
       const categoryContainer = document.createElement("div");
       categoryContainer.classList.add("category-column", "fw-normal", "h6", "mt-2", "p-2", "d-flex", "align-items-center");
 
@@ -118,36 +108,40 @@ const drawItems = (transactions) => {
       categoryLabel.classList.add("fw-bold");
       categoryLabel.textContent = capitalizeText(item.category || "");
 
-      // Insert category details
       categoryContainer.appendChild(categoryLabel);
-      // #endregion
 
-      // #region datetime
       const datetimeContainer = document.createElement("div");
       datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
       datetimeContainer.textContent = item?.date || "Fecha no disponible";
-      // #endregion
 
-      // #region Build item
       itemContainer.appendChild(itemNumber);
       itemContainer.appendChild(itemTransactionTypeContainer);
       itemContainer.appendChild(amountContainer);
       itemContainer.appendChild(categoryContainer);
       itemContainer.appendChild(datetimeContainer);
-      // #endregion
 
-      // Insert completed item in list
       transactionList.appendChild(itemContainer);
     }, index * 100)
   });
 };
+
 
 const getAllTransactions = () => {
   const expenses = getExpenses();
   const incomes = getIncomes();
 
   const transactions = expenses.concat(incomes);
-  return transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  // Ordena las transacciones de la más antigua a la más reciente
+  transactions.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  // Asigna un número secuencial comenzando desde 1
+  transactions.forEach((transaction, index) => {
+    transaction.number = index + 1;
+  });
+
+  // Invertimos el orden para que las transacciones más recientes aparezcan primero
+  return transactions.reverse();
 };
 
 const capitalizeText = (text) => {

@@ -48,45 +48,48 @@ const registerUser = (userObject) => {
 // Función para guardar ingresos (depósitos)
 const saveIncomes = (incomeObject) => {
     const users = JSON.parse(localStorage.getItem("storage")) || [];
-    const userIndex = users.findIndex((user) => user.username === activeSession);
+    const userIndex = users.findIndex((user) => user.username === activeUser.username);
 
     if (userIndex !== -1) {
         incomeObject.date = transactionDate();
         users[userIndex].incomes.push(incomeObject);
 
-        // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance += incomeObject.amount;
+
         localStorage.setItem("storage", JSON.stringify(users));
+        activeUser = users[userIndex];
     }
 };
 
 // Función para guardar gastos (retiros)
 const saveExpense = (expenseObject) => {
     const users = JSON.parse(localStorage.getItem("storage")) || [];
-    const userIndex = users.findIndex((user) => user.username === activeSession);
+    const userIndex = users.findIndex((user) => user.username === activeUser.username);
 
     if (userIndex !== -1) {
         expenseObject.date = transactionDate();
         users[userIndex].expenses.push(expenseObject);
 
-        // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance -= expenseObject.amount;
+
         localStorage.setItem("storage", JSON.stringify(users));
+        activeUser = users[userIndex];
     }
 };
 
 // Función para guardar pagos de servicio
 const saveServicePayment = (servicePaymentObject) => {
     const users = JSON.parse(localStorage.getItem("storage")) || [];
-    const userIndex = users.findIndex((user) => user.username === activeSession);
+    const userIndex = users.findIndex((user) => user.username === activeUser.username);
 
     if (userIndex !== -1) {
         servicePaymentObject.date = transactionDate();
         users[userIndex].expenses.push(servicePaymentObject);
 
-        // Actualiza el balance total del usuario activo
         users[userIndex].totalBalance -= servicePaymentObject.amount;
+
         localStorage.setItem("storage", JSON.stringify(users));
+        activeUser = users[userIndex];
     }
 };
 

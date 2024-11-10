@@ -4,23 +4,21 @@
  */
 const depositList = [];
 const withdraw = [];
-const catGastos = ['Supermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicios Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
+const catGastos = ['Suspermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicio Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
 const catIngresos = ['Sueldo', 'Transferencia Bancaria', 'Otros'];
-let expenseData = [];
-let incomeData = [];
+let categoryData = [];
 
 /**
  * Methods
  */
 
-// Función para crear el gráfico de líneas
 const createGraphic = () => {
   const ctx = document.getElementById('graphics-chart').getContext('2d');
 
   const lineChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciemmbre'],
       datasets: [
         {
           label: 'Depósitos',
@@ -49,7 +47,7 @@ const createGraphic = () => {
   });
 }
 
-// Función para crear gráfico de pastel para gastos
+// Función para crear gráfico de pastel
 const createPieChart0 = () => {
   const ctxPie1 = document.getElementById('pie-chart-1').getContext('2d');
 
@@ -59,7 +57,7 @@ const createPieChart0 = () => {
       labels: catGastos,
       datasets: [{
         label: 'Gastos',
-        data: expenseData, // Se usa expenseData para las categorías de gastos
+        data: categoryData, // Ahora toma todos los valores para las categorías de gastos
         backgroundColor: [
           'rgba(255, 99, 132, 0.7)',   // Rojo
           'rgba(54, 162, 235, 0.7)',   // Azul
@@ -96,20 +94,20 @@ const createPieChart0 = () => {
   });
 }
 
-// Función para crear gráfico de pastel para ingresos
+// Función para crear el segundo gráfico de pastel
 const createPieChart1 = () => {
   const ctxPie2 = document.getElementById('pie-chart-2').getContext('2d');
 
   const pieChart2 = new Chart(ctxPie2, {
     type: 'pie',
     data: {
-      labels: catIngresos,
+      labels: catIngresos, //
       datasets: [{
         label: 'Ingresos',
-        data: incomeData, // Se usa incomeData para las categorías de ingresos
+        data: categoryData, // Últimos dos valores
         backgroundColor: [
-          'rgba(255, 206, 86, 0.7)', // Amarillo
-          'rgba(75, 192, 192, 0.7)',  // Verde agua
+          'rgba(255, 206, 86, 0.7)', // Consulta de saldo
+          'rgba(75, 192, 192, 0.7)',  // Pagar servicios
           'rgba(255, 0, 255, 0.7)'    // Fucsia
         ],
         borderColor: [
@@ -155,19 +153,28 @@ function loadTransactionData() {
   withdraw.push(...expensesByMonth);
 
   // Agrupa por categorías para los gráficos de pastel
-  expenseData = catGastos.map(cat => 
-    expenses.filter(expense => expense.category === cat)
-            .reduce((sum, expense) => sum + expense.amount, 0)
-  );
+  const incomeCategories = { 'Sueldo': 0, 'Transferencia Bancaria': 0, 'Otros': 0 };
+  incomes.forEach(income => {
+      if (incomeCategories[income.category] !== undefined) {
+          incomeCategories[income.category] += income.amount;
+      }
+  });
+  const expenseCategories = {
+      'Supermercado': 0, 'Educación': 0, 'Entretenimiento': 0, 'Salud': 0,
+      'Servicios Públicos': 0, 'Energía Eléctrica': 0, 'Internet': 0, 'Telefonía': 0, 'Agua Potable': 0
+  };
+  expenses.forEach(expense => {
+      if (expenseCategories[expense.category] !== undefined) {
+          expenseCategories[expense.category] += expense.amount;
+      }
+  });
 
-  incomeData = catIngresos.map(cat => 
-    incomes.filter(income => income.category === cat)
-           .reduce((sum, income) => sum + income.amount, 0)
-  );
-
-  // Registro para confirmar el contenido de expenseData e incomeData
-  console.log("Datos de expenseData:", expenseData);
-  console.log("Datos de incomeData:", incomeData);
+  categoryData = [
+      ...Object.values(expenseCategories),  // Datos para categorías de gastos
+      ...Object.values(incomeCategories)    // Datos para categorías de ingresos
+  ];
+  // Registro para confirmar el contenido de categoryData
+  console.log("Datos de categoryData:", categoryData);
 }
 
 // Función para crear una lista de categorías de gastos debajo del gráfico
@@ -175,18 +182,17 @@ const createGastosList = () => {
   let gastosListContainer = document.getElementById('gastos-list');
   let listHTML = '<ul>';
   catGastos.forEach((cat, index) => {
-    listHTML += `<li>${cat}: ${expenseData[index]}%</li>`;
+    listHTML += `<li>${cat}: ${categoryData[index]}%</li>`;
   });
   listHTML += '</ul>';
   gastosListContainer.innerHTML = listHTML;
 }
-
 // Función para crear una lista de categorías de ingresos debajo del gráfico
 const createIngresosList = () => {
   let ingresosListContainer = document.getElementById('ingresos-list');
   let listHTML = '<ul>';
   catIngresos.forEach((cat, index) => {
-    listHTML += `<li>${cat}: ${incomeData[index]}%</li>`;
+    listHTML += `<li>${cat}: ${categoryData[9 + index]}%</li>`;
   });
   listHTML += '</ul>';
   ingresosListContainer.innerHTML = listHTML;
@@ -196,8 +202,8 @@ const createIngresosList = () => {
 document.addEventListener("DOMContentLoaded", () => {
   loadTransactionData(); // Cargar datos reales
   createGraphic(); // Llama al gráfico de línea
-  createPieChart0(); // Llama al primer gráfico de pastel (gastos)
-  createPieChart1();  // Llama al segundo gráfico de pastel (ingresos)
+  createPieChart0(); // Llama al primer gráfico de pastel
+  createPieChart1();  // Llama al segundo gráfico de pastel
   createGastosList(); // Lista de categorías de gastos
   createIngresosList(); // Lista de categorías de ingresos
 });

@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
       itemLi.appendChild(numberLabel);
       paginator.appendChild(itemLi);
     }
+    // Seleccionar la primera página por defecto
+  document.getElementById("page-button-0").classList.add("selected-page");
   }
 
-  // Seleccionar la primera página por defecto
-  document.getElementById("page-button-0").classList.add("selected-page");
 });
 
 const movePage = (pageNumber) => {
@@ -142,7 +142,7 @@ const getAllTransactions = () => {
     transaction.number = index + 1;
   });
 
-  return transactions.reverse();
+  return transactions;
 };
 
 const capitalizeText = (text) => {

@@ -100,6 +100,8 @@ const createPieChart0 = () => {
 const createPieChart1 = () => {
   const ctxPie2 = document.getElementById('pie-chart-2').getContext('2d');
 
+  console.log(incomeData)
+
   const pieChart2 = new Chart(ctxPie2, {
     type: 'pie',
     data: {
@@ -160,22 +162,71 @@ function loadTransactionData() {
             .reduce((sum, expense) => sum + expense.amount, 0)
   );
 
-  incomeData = catIngresos.map(cat => 
-    incomes.filter(income => income.category === cat)
-           .reduce((sum, income) => sum + income.amount, 0)
-  );
+  // Register new categories
+  const incomeCategory = {};
+  const expenseCategory = {};
 
-  // Registro para confirmar el contenido de expenseData e incomeData
+  /**
+   * Group amounts by categories
+   */
+  incomes.forEach((income) => {
+    if (!incomeCategory[income.category]) {
+      // Where category is not registered yet
+      incomeCategory[income.category] = income.amount;
+    } else {
+      // Add amount in current category
+      incomeCategory[income.category] = incomeCategory[income.category] + income.amount;
+    }
+  });
+
+  expenses.forEach((income) => {
+    if (!expenseCategory[income.category]) {
+      // Where category is not registered yet
+      expenseCategory[income.category] = income.amount;
+    } else {
+      // Add amount in current category
+      expenseCategory[income.category] = expenseCategory[income.category] + income.amount;
+    }
+  });
+
+  /**
+   * Create the structure for chart.js
+   */
+
+  incomeData = Object.keys(incomeCategory).map((categoryKey) => {
+    return {
+      label: categoryKey,
+      value: incomeCategory[categoryKey]
+    }
+  });
+
+  expenseData = Object.keys(expenseCategory).map((categoryKey) => {
+    return {
+      label: categoryKey,
+      value: expenseCategory[categoryKey]
+    }
+  })
+
+
+/*   // Registro para confirmar el contenido de expenseData e incomeData
   console.log("Datos de expenseData:", expenseData);
-  console.log("Datos de incomeData:", incomeData);
+  console.log("Datos de incomeData:", incomeData); */
 }
 
 // Función para crear una lista de categorías de gastos debajo del gráfico
 const createGastosList = () => {
   let gastosListContainer = document.getElementById('gastos-list');
   let listHTML = '<ul>';
+
+  // Sum all category value
+  const totalExpenses = expenseData.reduce((sum, item) => sum + item.value, 0);
+
   catGastos.forEach((cat, index) => {
-    listHTML += `<li>${cat}: ${expenseData[index]}%</li>`;
+    const categoryFounded = expenseData.find((item) => item.label == cat.toLocaleLowerCase());
+    const value = categoryFounded?.value ?? 0;
+
+    const percentage = ((value/totalExpenses)*100).toFixed(2);
+    listHTML += `<li>${cat}: ${percentage}%</li>`;
   });
   listHTML += '</ul>';
   gastosListContainer.innerHTML = listHTML;
@@ -185,9 +236,18 @@ const createGastosList = () => {
 const createIngresosList = () => {
   let ingresosListContainer = document.getElementById('ingresos-list');
   let listHTML = '<ul>';
+
+  // Sum all category value
+  const totalIncomes = incomeData.reduce((sum, item) => sum + item.value, 0);
+
   catIngresos.forEach((cat, index) => {
-    listHTML += `<li>${cat}: ${incomeData[index]}%</li>`;
+    const categoryFounded = incomeData.find((item) => item.label == cat.toLocaleLowerCase());
+    const value = categoryFounded?.value ?? 0;
+
+    const percentage = ((value/totalIncomes)*100).toFixed(2);
+    listHTML += `<li>${cat}: ${percentage}%</li>`;
   });
+
   listHTML += '</ul>';
   ingresosListContainer.innerHTML = listHTML;
 }

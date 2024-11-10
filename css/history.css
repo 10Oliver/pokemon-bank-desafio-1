@@ -108,6 +108,22 @@
   color: #795548;
 }
 
+.deposit-icon {
+  background-color: #87c696;
+}
+
+.deposit-icon>span {
+  color: #097c24;
+}
+
+.withdraw-icon {
+  background-color: #d78f8f;
+}
+
+.withdraw-icon>span {
+  color: #af1515;
+}
+
 .unknow-icon {
   background-color: #777777;
 }

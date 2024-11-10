@@ -137,7 +137,7 @@ const drawItems = (transactions) => {
       // Fecha y hora
       const datetimeContainer = document.createElement("div");
       datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
-      datetimeContainer.textContent = item?.date || "Fecha no disponible";
+      datetimeContainer.textContent = item?.date ? dayjs(item.date).format("DD-MM-YYYY [a las] HH:mm:ss a") : "Fecha no disponible";
 
       // Añadir elementos al contenedor
       itemContainer.appendChild(itemNumber);
@@ -195,26 +195,30 @@ const iconClass = (value) => {
 
 const colors = {
   "sueldo": "salary-icon",
-  "transferencia bancaria": "bank-transfer-icon",
+  "transferencia": "bank-transfer-icon",
   "ahorros": "savings-icon",
   "otros": "other-icon",
   "supermercado": "groceries-icon",
-  "educación": "education-icon",
+  "educacion": "education-icon",
   "entretenimiento": "entertainment-icon",
   "salud": "health-icon",
-  "servicios públicos": "utilities-icon"
+  "servicios": "utilities-icon",
+  "depósito": "deposit-icon",
+  "retiro": "withdraw-icon"
 };
 
 const icons = {
-  "sueldo": "mdi-cash-multiple",
-  "transferencia bancaria": "mdi-bank-transfer",
+  "sueldo": "mdi-cash",
+  "transferencia": "mdi-bank-transfer",
   "ahorros": "mdi-piggy-bank",
   "otros": "mdi-dots-horizontal",
   "supermercado": "mdi-cart",
-  "educación": "mdi-school",
+  "educacion": "mdi-school",
   "entretenimiento": "mdi-movie",
   "salud": "mdi-hospital",
-  "servicios públicos": "mdi-face-agent"
+  "servicios": "mdi-face-agent",
+  "depósito": "mdi-cash-multiple",
+  "retiro": "mdi-cash-multiple"
 };
 
 /*

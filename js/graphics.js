@@ -260,4 +260,18 @@ document.addEventListener("DOMContentLoaded", () => {
   createPieChart1();  // Llama al segundo gráfico de pastel (ingresos)
   createGastosList(); // Lista de categorías de gastos
   createIngresosList(); // Lista de categorías de ingresos
+
+  // Load navbar and footer
+  fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+        // Set active navbar button
+        document.getElementById("graphics-navbar-button").classList.add("active");
+      })
+      .catch(error => console.log('Error'.error));
+
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 });

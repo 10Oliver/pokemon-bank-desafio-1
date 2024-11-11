@@ -42,6 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("page-button-0").classList.add("selected-page");
   }
 
+  // Load footer and navbar
+  fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+        // Set active navbar button
+        document.getElementById("history-navbar-button").classList.add("active");
+      })
+      .catch(error => console.log('Error', error));
+
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 });
 
 const movePage = (pageNumber) => {

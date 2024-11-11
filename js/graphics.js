@@ -100,8 +100,6 @@ const createPieChart0 = () => {
 const createPieChart1 = () => {
   const ctxPie2 = document.getElementById('pie-chart-2').getContext('2d');
 
-  console.log(incomeData)
-
   const pieChart2 = new Chart(ctxPie2, {
     type: 'pie',
     data: {
@@ -225,8 +223,9 @@ const createGastosList = () => {
     const categoryFounded = expenseData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
-    const percentage = ((value/totalExpenses)*100).toFixed(2);
-    listHTML += `<li>${cat}: ${percentage}%</li>`;
+    const percentage = ((value/totalExpenses)*100);
+
+    listHTML += `<li>${cat}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
   });
   listHTML += '</ul>';
   gastosListContainer.innerHTML = listHTML;
@@ -244,8 +243,9 @@ const createIngresosList = () => {
     const categoryFounded = incomeData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
-    const percentage = ((value/totalIncomes)*100).toFixed(2);
-    listHTML += `<li>${cat}: ${percentage}%</li>`;
+    const percentage = ((value/totalIncomes)*100);
+
+    listHTML += `<li>${cat}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
   });
 
   listHTML += '</ul>';

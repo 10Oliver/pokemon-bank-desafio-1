@@ -81,10 +81,21 @@ const drawItems = (transactions) => {
       const itemTransactionTypeContainer = document.createElement("div");
       itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
 
+      const transactionColor = iconColor(item.tipo); // Get class for color icon
+      const transactionIconClass = iconClass(item.tipo);
+
+      const transactionIconContainer = document.createElement("div");
+      transactionIconContainer.classList.add(transactionColor, "p-3", "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
+
+      const transactionIcon = document.createElement("span");
+      transactionIcon.classList.add("mdi", transactionIconClass, "h4", "mb-0");
+
       const transactionLabel = document.createElement("span");
       transactionLabel.classList.add("fw-bold");
       transactionLabel.textContent = capitalizeText(item.tipo);
 
+      transactionIconContainer.appendChild(transactionIcon);
+      itemTransactionTypeContainer.appendChild(transactionIconContainer);
       itemTransactionTypeContainer.appendChild(transactionLabel);
 
       // Monto
@@ -110,12 +121,23 @@ const drawItems = (transactions) => {
       categoryLabel.classList.add("fw-bold");
       categoryLabel.textContent = capitalizeText(item.category || "");
 
+      const categoryIconClass = iconClass(item.category);
+      const categoryColor = iconColor(item.category);
+
+      const categoryIconContainer = document.createElement("div");
+      categoryIconContainer.classList.add("p-3", categoryColor, "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
+
+      const categoryIcon = document.createElement("span");
+      categoryIcon.classList.add("mdi", categoryIconClass, "h4", "mb-0");
+
+      categoryIconContainer.appendChild(categoryIcon);
+      categoryContainer.appendChild(categoryIconContainer);
       categoryContainer.appendChild(categoryLabel);
 
       // Fecha y hora
       const datetimeContainer = document.createElement("div");
       datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
-      datetimeContainer.textContent = item?.date || "Fecha no disponible";
+      datetimeContainer.textContent = item?.date ? dayjs(item.date).format("DD-MM-YYYY [a las] HH:mm:ss a") : "Fecha no disponible";
 
       // Añadir elementos al contenedor
       itemContainer.appendChild(itemNumber);
@@ -151,6 +173,54 @@ const capitalizeText = (text) => {
   const rest = text.slice(1);
   return firstLetter.toUpperCase() + rest;
 };
+
+
+const iconColor = (value) => {
+  const tag = value.toLowerCase();
+  const color = colors[tag];
+  if (!color) {
+    return "unknow-icon";
+  }
+  return color;
+}
+
+const iconClass = (value) => {
+  const tag = value.toLowerCase();
+  const icon = icons[tag];
+  if (!icon) {
+    return "mdi-help-circle-outline"
+  }
+  return icon;
+}
+
+const colors = {
+  "sueldo": "salary-icon",
+  "transferencia": "bank-transfer-icon",
+  "ahorros": "savings-icon",
+  "otros": "other-icon",
+  "supermercado": "groceries-icon",
+  "educacion": "education-icon",
+  "entretenimiento": "entertainment-icon",
+  "salud": "health-icon",
+  "servicios": "utilities-icon",
+  "depósito": "deposit-icon",
+  "retiro": "withdraw-icon"
+};
+
+const icons = {
+  "sueldo": "mdi-cash",
+  "transferencia": "mdi-bank-transfer",
+  "ahorros": "mdi-piggy-bank",
+  "otros": "mdi-dots-horizontal",
+  "supermercado": "mdi-cart",
+  "educacion": "mdi-school",
+  "entretenimiento": "mdi-movie",
+  "salud": "mdi-hospital",
+  "servicios": "mdi-face-agent",
+  "depósito": "mdi-cash-multiple",
+  "retiro": "mdi-cash-multiple"
+};
+
 /*
 document.addEventListener("DOMContentLoaded", () => {
   const transactionList = document.getElementById("transaction-list");

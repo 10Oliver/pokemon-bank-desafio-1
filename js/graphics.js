@@ -144,6 +144,19 @@ function loadTransactionData() {
   const incomes = getIncomes();
   const expenses = getExpenses();
 
+  // Set or hide empty label
+  if (incomes.length === 0) {
+    document.getElementById("pie-chart-2").classList.add("d-none");
+  } else {
+    document.getElementById("empty-pie-chart-2").classList.add("d-none");
+  }
+
+  if (expenses.length === 0) {
+    document.getElementById("pie-chart-1").classList.add("d-none");
+  } else {
+    document.getElementById("empty-pie-chart-1").classList.add("d-none");
+  }
+
   // Agrupa por mes para el gráfico de líneas
   const months = Array(12).fill(0);  // Inicializa 12 posiciones para los meses
   incomes.forEach(income => {

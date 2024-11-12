@@ -220,7 +220,12 @@ const colors = {
   "salud": "health-icon",
   "servicios": "utilities-icon",
   "depósito": "deposit-icon",
-  "retiro": "withdraw-icon"
+  "retiro": "withdraw-icon",
+  "pago de servicio": "service-icon",
+  "energia": "energy-icon",
+  "internet": "internet-icon",
+  "telefonia": "phone-icon",
+  "agua": "water-icon"
 };
 
 const icons = {
@@ -234,7 +239,12 @@ const icons = {
   "salud": "mdi-hospital",
   "servicios": "mdi-face-agent",
   "depósito": "mdi-cash-multiple",
-  "retiro": "mdi-cash-multiple"
+  "retiro": "mdi-cash-multiple",
+  "pago de servicio": "mdi-account-credit-card-outline",
+  "energia": "mdi-lightning-bolt",
+  "internet": "mdi-web-box",
+  "telefonia": "mdi-phone-classic",
+  "agua": "mdi-water-circle"
 };
 
 /*

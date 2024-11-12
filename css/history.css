@@ -124,6 +124,46 @@
   color: #af1515;
 }
 
+.service-icon {
+  background-color: #6de2d6;
+}
+
+.service-icon>span {
+  color: #06b5a3;
+}
+
+.energy-icon {
+  background-color: #ffebb2;
+}
+
+.energy-icon>span {
+  color: #ffbf00;
+}
+
+.internet-icon {
+  background-color: #ab77e6;
+}
+
+.internet-icon>span {
+  color: #550da7;
+}
+
+.phone-icon {
+  background-color: #f18383;
+}
+
+.phone-icon>span {
+  color: #c20303;
+}
+
+.water-icon {
+  background-color: #83c0f1;
+}
+
+.water-icon>span {
+  color: #0245ff;
+}
+
 .unknow-icon {
   background-color: #777777;
 }

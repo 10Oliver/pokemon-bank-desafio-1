@@ -4,7 +4,19 @@
  */
 const depositList = [];
 const withdraw = [];
-const catGastos = ['Supermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicios Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
+const catGastos = {
+  supermercado: "Supermercado",
+  educacion: "Educación",
+  entretenimiento: "Entretenimiento",
+  salud: "Salud",
+  servicios: "Servicios Públicos",
+  energia: "Energía Eléctrica",
+  internet: "Internet",
+  telefonia: "Telefonía",
+  agua: "Agua Potable"
+};
+
+//['Supermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicios Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
 const catIngresos = {
   sueldo: "Sueldo",
   transferencia: "Transferencia Bancaria",
@@ -61,7 +73,7 @@ const createPieChart0 = () => {
   const pieChart1 = new Chart(ctxPie1, {
     type: 'pie',
     data: {
-      labels: catGastos,
+      labels: Object.values(catGastos),
       datasets: [{
         label: 'Gastos',
         data: expenseData, // Se usa expenseData para las categorías de gastos
@@ -173,7 +185,7 @@ function loadTransactionData() {
   withdraw.push(...expensesByMonth);
 
   // Agrupa por categorías para los gráficos de pastel
-  expenseData = catGastos.map(cat => 
+  expenseData = Object.keys(catGastos).map(cat => 
     expenses.filter(expense => expense.category === cat)
             .reduce((sum, expense) => sum + expense.amount, 0)
   );
@@ -209,13 +221,6 @@ function loadTransactionData() {
    * Create the structure for chart.js
    */
 
-  /* incomeData = Object.keys(incomeCategory).map((categoryKey) => {
-    return {
-      label: categoryKey,
-      value: incomeCategory[categoryKey]
-    }
-  }); */
-
   incomeData = Object.keys(catIngresos).map((categoryName) => {
     const categoryKey = Object.keys(incomeCategory).find((key) => key == categoryName);
     return {
@@ -224,18 +229,13 @@ function loadTransactionData() {
     }
   });
 
-
-  expenseData = Object.keys(expenseCategory).map((categoryKey) => {
+  expenseData = Object.keys(catGastos).map((categoryName) => {
+    const categoryKey = Object.keys(expenseCategory).find((key) => key == categoryName);
     return {
       label: categoryKey,
-      value: expenseCategory[categoryKey]
+      value: expenseCategory[categoryKey] ?? 0
     }
-  })
-
-
-/*   // Registro para confirmar el contenido de expenseData e incomeData
-  console.log("Datos de expenseData:", expenseData);
-  console.log("Datos de incomeData:", incomeData); */
+  });
 }
 
 // Función para crear una lista de categorías de gastos debajo del gráfico
@@ -246,13 +246,13 @@ const createGastosList = () => {
   // Sum all category value
   const totalExpenses = expenseData.reduce((sum, item) => sum + item.value, 0);
 
-  catGastos.forEach((cat, index) => {
+  Object.keys(catGastos).forEach((cat) => {
     const categoryFounded = expenseData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
     const percentage = ((value/totalExpenses)*100);
 
-    listHTML += `<li>${cat}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
+    listHTML += `<li>${catGastos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
   });
   listHTML += '</ul>';
   gastosListContainer.innerHTML = listHTML;

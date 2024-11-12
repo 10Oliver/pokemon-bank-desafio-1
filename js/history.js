@@ -95,7 +95,6 @@ const drawItems = (transactions) => {
       const itemTransactionTypeContainer = document.createElement("div");
       itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
 
-      console.log("tipo", item)
       const transactionColor = iconColor(item.tipo); // Get class for color icon
       const transactionIconClass = iconClass(item.tipo);
 
@@ -191,7 +190,6 @@ const capitalizeText = (text) => {
 
 
 const iconColor = (value) => {
-  console.log(value)
   const tag = value.toLowerCase();
   const color = colors[tag];
   if (!color) {

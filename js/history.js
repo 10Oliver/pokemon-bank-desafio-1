@@ -95,7 +95,6 @@ const drawItems = (transactions) => {
       const itemTransactionTypeContainer = document.createElement("div");
       itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
 
-      console.log("tipo", item)
       const transactionColor = iconColor(item.tipo); // Get class for color icon
       const transactionIconClass = iconClass(item.tipo);
 
@@ -191,7 +190,6 @@ const capitalizeText = (text) => {
 
 
 const iconColor = (value) => {
-  console.log(value)
   const tag = value.toLowerCase();
   const color = colors[tag];
   if (!color) {
@@ -220,7 +218,12 @@ const colors = {
   "salud": "health-icon",
   "servicios": "utilities-icon",
   "depósito": "deposit-icon",
-  "retiro": "withdraw-icon"
+  "retiro": "withdraw-icon",
+  "pago de servicio": "service-icon",
+  "energia": "energy-icon",
+  "internet": "internet-icon",
+  "telefonia": "phone-icon",
+  "agua": "water-icon"
 };
 
 const icons = {
@@ -234,7 +237,12 @@ const icons = {
   "salud": "mdi-hospital",
   "servicios": "mdi-face-agent",
   "depósito": "mdi-cash-multiple",
-  "retiro": "mdi-cash-multiple"
+  "retiro": "mdi-cash-multiple",
+  "pago de servicio": "mdi-account-credit-card-outline",
+  "energia": "mdi-lightning-bolt",
+  "internet": "mdi-web-box",
+  "telefonia": "mdi-phone-classic",
+  "agua": "mdi-water-circle"
 };
 
 /*

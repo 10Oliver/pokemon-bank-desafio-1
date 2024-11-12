@@ -4,8 +4,44 @@
  */
 const depositList = [];
 const withdraw = [];
-const catGastos = ['Supermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicios Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
-const catIngresos = ['Sueldo', 'Transferencia Bancaria', 'Otros'];
+const catGastos = {
+  supermercado: "Supermercado",
+  educacion: "Educación",
+  entretenimiento: "Entretenimiento",
+  salud: "Salud",
+  servicios: "Servicios Públicos",
+  energia: "Energía Eléctrica",
+  internet: "Internet",
+  telefonia: "Telefonía",
+  agua: "Agua Potable"
+};
+
+const colorExpenses = {
+  supermercado: "rgb(255, 99, 132)",
+  educacion: "rgb(54, 162, 235)",
+  entretenimiento: "rgb(255, 206, 86)",
+  salud: "rgb(75, 192, 192)",
+  servicios: "rgb(153, 102, 255)",
+  energia: "rgb(255, 159, 64)",
+  internet: "rgb(100, 255, 86)",
+  telefonia: "rgb(255, 0, 255)",
+  agua: "rgb(54, 255, 164)"
+};
+
+const catIngresos = {
+  sueldo: "Sueldo",
+  transferencia: "Transferencia Bancaria",
+  ahorros: "Ahorros",
+  otros: "Otros"
+};
+
+const colorIncomes = {
+  sueldo: "rgb(243, 190, 53)",
+  transferencia: "rgba(75, 192, 192)",
+  ahorros: "rgb(255, 0, 255)",
+  otros: "rgb(225, 132, 12)"
+};
+
 let expenseData = [];
 let incomeData = [];
 
@@ -56,7 +92,7 @@ const createPieChart0 = () => {
   const pieChart1 = new Chart(ctxPie1, {
     type: 'pie',
     data: {
-      labels: catGastos,
+      labels: Object.values(catGastos),
       datasets: [{
         label: 'Gastos',
         data: expenseData, // Se usa expenseData para las categorías de gastos
@@ -103,19 +139,21 @@ const createPieChart1 = () => {
   const pieChart2 = new Chart(ctxPie2, {
     type: 'pie',
     data: {
-      labels: catIngresos,
+      labels: Object.values(catIngresos),
       datasets: [{
         label: 'Ingresos',
         data: incomeData, // Se usa incomeData para las categorías de ingresos
         backgroundColor: [
-          'rgba(255, 206, 86, 0.7)', // Amarillo
+          'rgba(243, 190, 53, 0.7)', // Amarillo
           'rgba(75, 192, 192, 0.7)',  // Verde agua
-          'rgba(255, 0, 255, 0.7)'    // Fucsia
+          'rgba(255, 0, 255, 0.7)',    // Fucsia
+          'rgba(225, 132, 12, 0.7)'
         ],
         borderColor: [
-          'rgba(255, 206, 86, 1)',
+          'rgba(243, 190, 53, 1)',
           'rgba(75, 192, 192, 1)',
-          'rgba(255, 0, 255, 1)'
+          'rgba(255, 0, 255, 1)',
+          'rgba(225, 132, 12, 1)'
         ],
         borderWidth: 1
       }]
@@ -139,6 +177,19 @@ function loadTransactionData() {
   const incomes = getIncomes();
   const expenses = getExpenses();
 
+  // Set or hide empty label
+  if (incomes.length === 0) {
+    document.getElementById("pie-chart-2").classList.add("d-none");
+  } else {
+    document.getElementById("empty-pie-chart-2").classList.add("d-none");
+  }
+
+  if (expenses.length === 0) {
+    document.getElementById("pie-chart-1").classList.add("d-none");
+  } else {
+    document.getElementById("empty-pie-chart-1").classList.add("d-none");
+  }
+
   // Agrupa por mes para el gráfico de líneas
   const months = Array(12).fill(0);  // Inicializa 12 posiciones para los meses
   incomes.forEach(income => {
@@ -155,7 +206,7 @@ function loadTransactionData() {
   withdraw.push(...expensesByMonth);
 
   // Agrupa por categorías para los gráficos de pastel
-  expenseData = catGastos.map(cat => 
+  expenseData = Object.keys(catGastos).map(cat => 
     expenses.filter(expense => expense.category === cat)
             .reduce((sum, expense) => sum + expense.amount, 0)
   );
@@ -191,41 +242,42 @@ function loadTransactionData() {
    * Create the structure for chart.js
    */
 
-  incomeData = Object.keys(incomeCategory).map((categoryKey) => {
+  incomeData = Object.keys(catIngresos).map((categoryName) => {
+    const categoryKey = Object.keys(incomeCategory).find((key) => key == categoryName);
     return {
       label: categoryKey,
-      value: incomeCategory[categoryKey]
+      value: incomeCategory[categoryKey] ?? 0
     }
   });
 
-  expenseData = Object.keys(expenseCategory).map((categoryKey) => {
+  expenseData = Object.keys(catGastos).map((categoryName) => {
+    const categoryKey = Object.keys(expenseCategory).find((key) => key == categoryName);
     return {
       label: categoryKey,
-      value: expenseCategory[categoryKey]
+      value: expenseCategory[categoryKey] ?? 0
     }
-  })
-
-
-/*   // Registro para confirmar el contenido de expenseData e incomeData
-  console.log("Datos de expenseData:", expenseData);
-  console.log("Datos de incomeData:", incomeData); */
+  });
 }
 
 // Función para crear una lista de categorías de gastos debajo del gráfico
 const createGastosList = () => {
   let gastosListContainer = document.getElementById('gastos-list');
-  let listHTML = '<ul>';
+  let listHTML = '<ul class="list-inline">';
 
   // Sum all category value
   const totalExpenses = expenseData.reduce((sum, item) => sum + item.value, 0);
 
-  catGastos.forEach((cat, index) => {
+  Object.keys(catGastos).forEach((cat) => {
     const categoryFounded = expenseData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
     const percentage = ((value/totalExpenses)*100);
 
-    listHTML += `<li>${cat}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
+    listHTML += `
+    <li>
+      <span class="mdi mdi-square-rounded me-2" style="color: ${colorExpenses[cat]}"></span>
+      ${catGastos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%
+    </li>`;
   });
   listHTML += '</ul>';
   gastosListContainer.innerHTML = listHTML;
@@ -234,18 +286,23 @@ const createGastosList = () => {
 // Función para crear una lista de categorías de ingresos debajo del gráfico
 const createIngresosList = () => {
   let ingresosListContainer = document.getElementById('ingresos-list');
-  let listHTML = '<ul>';
+  let listHTML = '<ul class="list-inline">';
 
   // Sum all category value
   const totalIncomes = incomeData.reduce((sum, item) => sum + item.value, 0);
 
-  catIngresos.forEach((cat, index) => {
+  Object.keys(catIngresos).forEach((cat, index) => {
     const categoryFounded = incomeData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
     const percentage = ((value/totalIncomes)*100);
 
-    listHTML += `<li>${cat}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
+
+    listHTML += `
+    <li>
+      <span class="mdi mdi-square-rounded me-2" style="color: ${colorIncomes[cat]}"></span>
+      ${catIngresos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%
+    </li>`;
   });
 
   listHTML += '</ul>';

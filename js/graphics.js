@@ -5,7 +5,12 @@
 const depositList = [];
 const withdraw = [];
 const catGastos = ['Supermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicios Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
-const catIngresos = ['Sueldo', 'Transferencia Bancaria', 'Otros'];
+const catIngresos = {
+  sueldo: "Sueldo",
+  transferencia: "Transferencia Bancaria",
+  ahorros: "Ahorros",
+  otros: "Otros"
+};
 let expenseData = [];
 let incomeData = [];
 
@@ -103,7 +108,7 @@ const createPieChart1 = () => {
   const pieChart2 = new Chart(ctxPie2, {
     type: 'pie',
     data: {
-      labels: catIngresos,
+      labels: Object.values(catIngresos),
       datasets: [{
         label: 'Ingresos',
         data: incomeData, // Se usa incomeData para las categorías de ingresos
@@ -191,12 +196,21 @@ function loadTransactionData() {
    * Create the structure for chart.js
    */
 
-  incomeData = Object.keys(incomeCategory).map((categoryKey) => {
+  /* incomeData = Object.keys(incomeCategory).map((categoryKey) => {
     return {
       label: categoryKey,
       value: incomeCategory[categoryKey]
     }
+  }); */
+
+  incomeData = Object.keys(catIngresos).map((categoryName) => {
+    const categoryKey = Object.keys(incomeCategory).find((key) => key == categoryName);
+    return {
+      label: categoryKey,
+      value: incomeCategory[categoryKey] ?? 0
+    }
   });
+
 
   expenseData = Object.keys(expenseCategory).map((categoryKey) => {
     return {
@@ -239,13 +253,14 @@ const createIngresosList = () => {
   // Sum all category value
   const totalIncomes = incomeData.reduce((sum, item) => sum + item.value, 0);
 
-  catIngresos.forEach((cat, index) => {
+  Object.keys(catIngresos).forEach((cat, index) => {
     const categoryFounded = incomeData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
     const percentage = ((value/totalIncomes)*100);
 
-    listHTML += `<li>${cat}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
+
+    listHTML += `<li>${catIngresos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
   });
 
   listHTML += '</ul>';

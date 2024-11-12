@@ -16,13 +16,32 @@ const catGastos = {
   agua: "Agua Potable"
 };
 
-//['Supermercado', 'Educación', 'Entretenimiento', 'Salud', 'Servicios Públicos', 'Energía Eléctrica', 'Internet', 'Telefonía', 'Agua Potable'];
+const colorExpenses = {
+  supermercado: "rgb(255, 99, 132)",
+  educacion: "rgb(54, 162, 235)",
+  entretenimiento: "rgb(255, 206, 86)",
+  salud: "rgb(75, 192, 192)",
+  servicios: "rgb(153, 102, 255)",
+  energia: "rgb(255, 159, 64)",
+  internet: "rgb(100, 255, 86)",
+  telefonia: "rgb(255, 0, 255)",
+  agua: "rgb(54, 255, 164)"
+};
+
 const catIngresos = {
   sueldo: "Sueldo",
   transferencia: "Transferencia Bancaria",
   ahorros: "Ahorros",
   otros: "Otros"
 };
+
+const colorIncomes = {
+  sueldo: "rgb(243, 190, 53)",
+  transferencia: "rgba(75, 192, 192)",
+  ahorros: "rgb(255, 0, 255)",
+  otros: "rgb(225, 132, 12)"
+};
+
 let expenseData = [];
 let incomeData = [];
 
@@ -125,14 +144,16 @@ const createPieChart1 = () => {
         label: 'Ingresos',
         data: incomeData, // Se usa incomeData para las categorías de ingresos
         backgroundColor: [
-          'rgba(255, 206, 86, 0.7)', // Amarillo
+          'rgba(243, 190, 53, 0.7)', // Amarillo
           'rgba(75, 192, 192, 0.7)',  // Verde agua
-          'rgba(255, 0, 255, 0.7)'    // Fucsia
+          'rgba(255, 0, 255, 0.7)',    // Fucsia
+          'rgba(225, 132, 12, 0.7)'
         ],
         borderColor: [
-          'rgba(255, 206, 86, 1)',
+          'rgba(243, 190, 53, 1)',
           'rgba(75, 192, 192, 1)',
-          'rgba(255, 0, 255, 1)'
+          'rgba(255, 0, 255, 1)',
+          'rgba(225, 132, 12, 1)'
         ],
         borderWidth: 1
       }]
@@ -241,7 +262,7 @@ function loadTransactionData() {
 // Función para crear una lista de categorías de gastos debajo del gráfico
 const createGastosList = () => {
   let gastosListContainer = document.getElementById('gastos-list');
-  let listHTML = '<ul>';
+  let listHTML = '<ul class="list-inline">';
 
   // Sum all category value
   const totalExpenses = expenseData.reduce((sum, item) => sum + item.value, 0);
@@ -252,7 +273,11 @@ const createGastosList = () => {
 
     const percentage = ((value/totalExpenses)*100);
 
-    listHTML += `<li>${catGastos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
+    listHTML += `
+    <li>
+      <span class="mdi mdi-square-rounded me-2" style="color: ${colorExpenses[cat]}"></span>
+      ${catGastos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%
+    </li>`;
   });
   listHTML += '</ul>';
   gastosListContainer.innerHTML = listHTML;
@@ -261,7 +286,7 @@ const createGastosList = () => {
 // Función para crear una lista de categorías de ingresos debajo del gráfico
 const createIngresosList = () => {
   let ingresosListContainer = document.getElementById('ingresos-list');
-  let listHTML = '<ul>';
+  let listHTML = '<ul class="list-inline">';
 
   // Sum all category value
   const totalIncomes = incomeData.reduce((sum, item) => sum + item.value, 0);
@@ -273,7 +298,11 @@ const createIngresosList = () => {
     const percentage = ((value/totalIncomes)*100);
 
 
-    listHTML += `<li>${catIngresos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%</li>`;
+    listHTML += `
+    <li>
+      <span class="mdi mdi-square-rounded me-2" style="color: ${colorIncomes[cat]}"></span>
+      ${catIngresos[cat]}: ${!isNaN(percentage) ? percentage.toFixed(2) : '0.00'}%
+    </li>`;
   });
 
   listHTML += '</ul>';

@@ -8,7 +8,7 @@ document.getElementById("login-btn").addEventListener("click", () => {
 
     const userFound = users.find((user) => user.username == username.value);
 
-    // #region Missing fields validation
+    // #Validación de campos vacios
     if (!username.value) {
         username.classList.remove("border-dark");
         username.classList.add("red-border");
@@ -37,13 +37,13 @@ document.getElementById("login-btn").addEventListener("click", () => {
         return;
     }
 
-    // User exists flow
+    // Usuario existe
     if (userFound.password != password.value) {
         showAlert("Usuario o contraseña incorrectos", "error");
         return;
     }
 
-    // Session completed
+    // Sesion completa
     loadSession(username.value);
 
     location.href = "views/home.html";
@@ -52,7 +52,7 @@ document.getElementById("login-btn").addEventListener("click", () => {
 document.getElementById("show-password").addEventListener("click", () => {
     document.getElementById("show-confirm-password").classList.remove("d-none");
     document.getElementById("show-password").classList.add("d-none");
-    // Change input type
+    // Cambiar input type
     document.getElementById("password-input").type = "text";
 });
 
@@ -64,14 +64,14 @@ document.getElementById("show-confirm-password").addEventListener("click", () =>
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Check if already exist active session
+    // Revisar si ya hay una sesión activa
     const activeSession = localStorage.getItem("active-session");
 
     if (activeSession) {
         location.href = "views/home.html";
     }
 
-    // Set greeting
+    // Determinar saludo
     const date = new Date();
     const time = date.getHours();
 

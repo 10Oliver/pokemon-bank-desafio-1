@@ -193,53 +193,53 @@ function loadTransactionData() {
   // Agrupa por mes para el gráfico de líneas
   const months = Array(12).fill(0);  // Inicializa 12 posiciones para los meses
   incomes.forEach(income => {
-      const month = new Date(income.date).getMonth();
-      months[month] += income.amount;
+    const month = new Date(income.date).getMonth();
+    months[month] += income.amount;
   });
   depositList.push(...months);  // Añade a la lista de depósitos mensual
 
   const expensesByMonth = Array(12).fill(0);
   expenses.forEach(expense => {
-      const month = new Date(expense.date).getMonth();
-      expensesByMonth[month] += expense.amount;
+    const month = new Date(expense.date).getMonth();
+    expensesByMonth[month] += expense.amount;
   });
   withdraw.push(...expensesByMonth);
 
   // Agrupa por categorías para los gráficos de pastel
-  expenseData = Object.keys(catGastos).map(cat => 
+  expenseData = Object.keys(catGastos).map(cat =>
     expenses.filter(expense => expense.category === cat)
-            .reduce((sum, expense) => sum + expense.amount, 0)
+      .reduce((sum, expense) => sum + expense.amount, 0)
   );
 
-  // Register new categories
+  // Registrar nuevas categorias
   const incomeCategory = {};
   const expenseCategory = {};
 
   /**
-   * Group amounts by categories
+   * Agrupa cantidades por categoría
    */
   incomes.forEach((income) => {
     if (!incomeCategory[income.category]) {
-      // Where category is not registered yet
+      // Donde la categoría no ha sido registrada
       incomeCategory[income.category] = income.amount;
     } else {
-      // Add amount in current category
+      // Agrega cantidad en categoría actual
       incomeCategory[income.category] = incomeCategory[income.category] + income.amount;
     }
   });
 
   expenses.forEach((income) => {
     if (!expenseCategory[income.category]) {
-      // Where category is not registered yet
+      // Donde la categoría no ha sido registrada
       expenseCategory[income.category] = income.amount;
     } else {
-      // Add amount in current category
+      // Agrega cantidad en categoría actual
       expenseCategory[income.category] = expenseCategory[income.category] + income.amount;
     }
   });
 
   /**
-   * Create the structure for chart.js
+   * Crear estructura para chart.js
    */
 
   incomeData = Object.keys(catIngresos).map((categoryName) => {
@@ -271,7 +271,7 @@ const createGastosList = () => {
     const categoryFounded = expenseData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
-    const percentage = ((value/totalExpenses)*100);
+    const percentage = ((value / totalExpenses) * 100);
 
     listHTML += `
     <li>
@@ -295,7 +295,7 @@ const createIngresosList = () => {
     const categoryFounded = incomeData.find((item) => item.label == cat.toLocaleLowerCase());
     const value = categoryFounded?.value ?? 0;
 
-    const percentage = ((value/totalIncomes)*100);
+    const percentage = ((value / totalIncomes) * 100);
 
 
     listHTML += `
@@ -318,17 +318,17 @@ document.addEventListener("DOMContentLoaded", () => {
   createGastosList(); // Lista de categorías de gastos
   createIngresosList(); // Lista de categorías de ingresos
 
-  // Load navbar and footer
+  // Cargar navbar y footer
   fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar-placeholder').innerHTML = data;
-        // Set active navbar button
-        document.getElementById("graphics-navbar-button").classList.add("active");
-      })
-      .catch(error => console.log('Error'.error));
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar-placeholder').innerHTML = data;
 
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+      document.getElementById("graphics-navbar-button").classList.add("active");
+    })
+    .catch(error => console.log('Error'.error));
+
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 });

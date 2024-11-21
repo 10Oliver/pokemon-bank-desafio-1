@@ -13,7 +13,7 @@ document.getElementById("register-btn").addEventListener("click", () => {
         username.classList.remove("red-border");
     }
 
-    if (!phone.value) {
+    if (!phone.value || !/^\d{8}$/.test(phone.value)) {
         phone.classList.add("red-border");
     } else {
         phone.classList.remove("red-border");
@@ -33,6 +33,11 @@ document.getElementById("register-btn").addEventListener("click", () => {
 
     if (!username.value) {
         showAlert("El nombre de usuario es requerido", "warning");
+        return;
+    }
+
+    if (!/^\d{8}$/.test(phone.value)) {
+        showAlert("El número de teléfono debe de contener 8 números", "warning");
         return;
     }
 

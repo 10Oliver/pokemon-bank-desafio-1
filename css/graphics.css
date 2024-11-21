@@ -1,0 +1,24 @@
+body {
+    font-family: 'Poppins', sans-serif;
+  }
+  #container py-5{
+    margin-top: 28px;
+  }
+  #pie-chart-1, #pie-chart-2 {
+    width: 320px !important;
+    height: 320px !important;
+    max-width: 320px;
+    max-height: 320px;
+  }
+  #gastos, #ingresos{
+    padding: 10px 45px !important;
+    margin: 15px !important;
+    margin-bottom: 45px !important;
+    border-radius: 10px !important;
+    font-size: 18px !important;
+    background-color: #103cb4;
+    color: white;
+  }
+  #gastos-list, #ingresos-list {
+    margin-top: 28px;
+  }

@@ -11,10 +11,10 @@ const users = {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    // check if exists data
+    // Verificar si existen los datos
     const currentData = JSON.parse(localStorage.getItem("storage"));
     if (currentData) {
-        // Check if user is already in list
+        // Ver si el usuario ya esta en la lista
         const included = currentData.find((user) => user.username === users.username);
 
         if (!included) {

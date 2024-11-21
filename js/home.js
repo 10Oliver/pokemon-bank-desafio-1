@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+//Validación del NPE
 function validarNPE(npe) {
     const constraints = {
         npe: {
@@ -37,10 +38,12 @@ function validarNPE(npe) {
     return validation === undefined;
 }
 
+//Actualizar balance
 function updateBalanceDisplay() {
     document.getElementById("saldo").textContent = activeUser.totalBalance.toFixed(2);
 }
 
+//Finalizar transacción
 function finalizarTransaccion(tipo) {
     let monto, categoria;
 
@@ -83,6 +86,7 @@ function finalizarTransaccion(tipo) {
     }
 }
 
+//Realizar un depósito
 function realizarDeposito(monto, categoria) {
     if (isNaN(monto) || monto <= 0) {
         Swal.fire("Ingresa un monto válido.", "", "error");
@@ -124,6 +128,7 @@ function realizarDeposito(monto, categoria) {
     });
 }
 
+//Realizar un retiro
 function realizarRetiro(monto, categoria) {
     if (isNaN(monto) || monto <= 0) {
         Swal.fire("Ingresa un monto válido.", "", "error");
@@ -170,6 +175,7 @@ function realizarRetiro(monto, categoria) {
     });
 }
 
+//Pagar un servico
 function realizarPagoServicio(monto, servicio) {
     if (isNaN(monto) || monto <= 0) {
         Swal.fire("Ingresa un monto válido.", "", "error");
@@ -216,7 +222,7 @@ function realizarPagoServicio(monto, servicio) {
     });
 }
 
-
+//Generar PDF
 function generarReciboPDF(transaction, tipo) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -256,6 +262,7 @@ function generarReciboPDF(transaction, tipo) {
     doc.save(`Recibo_${tipo}_${fecha}.pdf`);
 }
 
+//Primera letra a mayúscula
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -287,7 +294,7 @@ function LimpiarCamposServicio() {
     document.getElementById("NPE").value = '';
 }
 
-//Funciones para impiar campos al cerrar los modal
+//Funciones para limpiar campos al cerrar los modal
 document.getElementById("modalServicios").addEventListener("hidden.bs.modal", function () {
     LimpiarCamposServicio();
 });
@@ -304,11 +311,11 @@ document.getElementById("modalSaldo").addEventListener("show.bs.modal", function
     updateBalanceDisplay();
 });
 
+//Mostrar navbar y footer
 fetch('navbar.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('navbar-placeholder').innerHTML = data;
-        // Set active navbar button
         document.getElementById("home-navbar-button").classList.add("active");
     });
 

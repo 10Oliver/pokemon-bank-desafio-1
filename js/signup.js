@@ -6,7 +6,7 @@ document.getElementById("register-btn").addEventListener("click", () => {
     const password = document.getElementById("password-input");
     const confirmPassword = document.getElementById("confirm-password-input");
 
-    // Check for empty fields
+    // Validaciones
     if (!username.value) {
         username.classList.add("red-border");
     } else {
@@ -66,33 +66,33 @@ document.getElementById("register-btn").addEventListener("click", () => {
 document.getElementById("show-password").addEventListener("click", () => {
     document.getElementById("hide-password").classList.remove("d-none");
     document.getElementById("show-password").classList.add("d-none");
-    // Change input type
+    // Cambiar input type
     document.getElementById("password-input").type = "text";
 });
 
 document.getElementById("hide-password").addEventListener("click", () => {
     document.getElementById("hide-password").classList.add("d-none");
     document.getElementById("show-password").classList.remove("d-none");
-    // Change input type
+    // Cambiar input type
     document.getElementById("password-input").type = "password";
 });
 
 document.getElementById("show-confirm-password").addEventListener("click", () => {
     document.getElementById("hide-confirm-password").classList.remove("d-none");
     document.getElementById("show-confirm-password").classList.add("d-none");
-    // Change input type
+    // Cambiar input type
     document.getElementById("confirm-password-input").type = "text";
 });
 
 document.getElementById("hide-confirm-password").addEventListener("click", () => {
     document.getElementById("hide-confirm-password").classList.add("d-none");
     document.getElementById("show-confirm-password").classList.remove("d-none");
-    // Change input type
+    // Cambiar input type
     document.getElementById("confirm-password-input").type = "password";
 });
 
 /**
- * Password security indicator
+ * Indicador de seguridad de contraseña
  */
 document.getElementById("password-input").addEventListener("keyup", () => {
     let score = 4;

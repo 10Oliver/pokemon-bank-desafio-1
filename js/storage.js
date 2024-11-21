@@ -20,10 +20,9 @@ const getUserInfo = () => {
     return { ...rest };
 }
 
-
 const loadSession = (username) => {
 
-    // Set active session
+    // Activar sesion
     localStorage.setItem("active-session", username);
 
     activeSession = username;
@@ -73,7 +72,7 @@ const saveExpense = (expenseObject) => {
     if (userIndex !== -1) {
         expenseObject.date = transactionDate();
 
-        // Verifica que el gasto no esté duplicado antes de agregarlo
+        // Verificar que el gasto no esté duplicado antes de agregarlo
         if (!users[userIndex].expenses.some(expense => expense.date === expenseObject.date && expense.amount === expenseObject.amount)) {
             users[userIndex].expenses.push(expenseObject);
             users[userIndex].totalBalance -= expenseObject.amount;

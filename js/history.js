@@ -1,20 +1,21 @@
+//history.js
 document.addEventListener("DOMContentLoaded", () => {
   const transactionList = document.getElementById("transaction-list");
   const paginator = document.getElementById("paginator");
 
-    // Load footer and navbar
+  // Cargar footer y navbar
   fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar-placeholder').innerHTML = data;
-        // Set active navbar button
-        document.getElementById("history-navbar-button").classList.add("active");
-      })
-      .catch(error => console.log('Error', error));
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar-placeholder').innerHTML = data;
 
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
+      document.getElementById("history-navbar-button").classList.add("active");
+    })
+    .catch(error => console.log('Error', error));
+
+  fetch('footer.html')
+    .then(response => response.text())
+    .then(data => { document.getElementById('footer-placeholder').innerHTML = data; });
 
   // Limpiar elementos previos
   transactionList.innerHTML = "";
@@ -53,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
       paginator.appendChild(itemLi);
     }
     // Seleccionar la primera página por defecto
-  document.getElementById("page-button-0").classList.add("selected-page");
+    document.getElementById("page-button-0").classList.add("selected-page");
   }
 
 });
@@ -66,13 +67,12 @@ const movePage = (pageNumber) => {
   const transactionToDraw = transaction.slice(startNumber, endNumber);
   drawItems(transactionToDraw);
 
-  // Remove all page selected clases
   const pageButtons = document.querySelectorAll(".selected-page");
   pageButtons.forEach((_button, index) => {
     pageButtons[index].classList.remove("selected-page");
   });
 
-  // Set new page selected
+  // Nueva pagina seleccionada
   document.getElementById(`page-button-${pageNumber}`).classList.add("selected-page");
 };
 
@@ -244,229 +244,3 @@ const icons = {
   "telefonia": "mdi-phone-classic",
   "agua": "mdi-water-circle"
 };
-
-/*
-document.addEventListener("DOMContentLoaded", () => {
-  const transactionList = document.getElementById("transaction-list");
-  const paginator = document.getElementById("paginator");
-
-  const transactions = getAllTransactions();
-
-  const transactionToDraw = transactions.slice(0, 5);
-
-  // For empty transactions
-  if (transactions.length == 0) {
-    const labelContainer = document.createElement("div");
-    labelContainer.classList.add("w-100", "py-4", "text-center", "h5", "bg-light");
-    labelContainer.textContent = "No se han realizado transacciones";
-    transactionList.appendChild(labelContainer);
-    return;
-  }
-
-  // Draw transaction items
-  drawItems(transactionToDraw);
-
-  // Draw paginator
-  if (transactions.length > 5) {
-    const totalPages = Math.ceil(transactions.length / 5);
-
-    const pageNumbers = new Array(totalPages).fill(undefined);
-
-    pageNumbers.forEach((_number, index) => {
-      const itemLi = document.createElement("li");
-      itemLi.classList.add("page-item", "cursor-pointer");
-      itemLi.id = `page-button-${index}`;
-      itemLi.onclick = () => movePage(index);
-
-      const numberLabel = document.createElement("a");
-      numberLabel.classList.add("page-link", "text-dark");
-      numberLabel.textContent = index + 1;
-
-      itemLi.appendChild(numberLabel);
-
-      paginator.appendChild(itemLi);
-    });
-
-    // Set first page selected
-    document.getElementById("page-button-0").classList.add("selected-page");
-  }
-});
-
-const movePage = (pageNumber) => {
-  const transaction = getAllTransactions();
-
-  const startNumber = pageNumber * 5;
-  const endNumber = (pageNumber + 1) * 5;
-  const transactionToDraw = transaction.slice(startNumber, endNumber);
-  drawItems(transactionToDraw);
-
-  // Remove all page selected clases
-  const pageButtons = document.querySelectorAll(".selected-page");
-  pageButtons.forEach((_button, index) => {
-    pageButtons[index].classList.remove("selected-page");
-  });
-
-  // Set new page selected
-  document.getElementById(`page-button-${pageNumber}`).classList.add("selected-page");
-}
-
-const drawItems = (transactions) => {
-  const transactionList = document.getElementById("transaction-list");
-  // Set default height
-  transactionList.style.height = `${transactions.length * 130}px`;
-  transactionList.innerHTML = ""; // Clean list
-
-  transactions.forEach((item, index) => {
-    // Main item container
-    setTimeout(() => {
-      const itemContainer = document.createElement("div");
-      itemContainer.classList.add("w-100", "container", "bg-light", "d-flex", "justify-content-center", "align-items-center", "py-3", "mb-3", "rounded", "animate-slide-in");
-
-      // #region Number
-      const itemNumber = document.createElement("div");
-      itemNumber.classList.add("number-column", "fw-normal", "h6", "mt-2", "p-2");
-      itemNumber.textContent = item.number;
-      // #endregion
-
-      // #region transaction type
-      const itemTransactionTypeContainer = document.createElement("div");
-      itemTransactionTypeContainer.classList.add("transaction-column", "mt-2", "p-2", "d-flex", "align-items-center");
-
-      // Icon
-      const transactionColor = iconColor(item.transaction_type); // Get class for color icon
-      const transactionIconClass = iconClass(item.transaction_type);
-
-      const transactionIconContainer = document.createElement("div");
-      transactionIconContainer.classList.add(transactionColor, "p-3", "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
-
-      const transactionIcon = document.createElement("span");
-      transactionIcon.classList.add("mdi", transactionIconClass, "h4", "mb-0");
-
-      const transactionLabel = document.createElement("span");
-      transactionLabel.classList.add("fw-bold");
-      transactionLabel.textContent = capitalizeText(item.transaction_type);
-
-      // Insert child
-      transactionIconContainer.appendChild(transactionIcon);
-
-      itemTransactionTypeContainer.appendChild(transactionIconContainer);
-      itemTransactionTypeContainer.appendChild(transactionLabel);
-      // #endregion
-
-      // #region amount
-      const amountContainer = document.createElement("div");
-      amountContainer.classList.add("amount-column", "fw-normal", "mt-2", "p-2", "d-flex", "flex-column");
-
-      const currencySymbol = document.createElement("span");
-      currencySymbol.classList.add("h6");
-      currencySymbol.textContent = "USD";
-
-      const amountLabel = document.createElement("span");
-      amountLabel.classList.add("fw-bolder", "h6");
-      amountLabel.textContent = `$${item.amount}`;
-
-      // Insert child
-      amountContainer.appendChild(currencySymbol);
-      amountContainer.appendChild(amountLabel);
-      // #endregion
-
-      // #region category
-      const categoryIconClass = iconClass(item.category);
-      const categoryColor = iconColor(item.category);
-
-      const categoryContainer = document.createElement("div");
-      categoryContainer.classList.add("category-column", "fw-normal", "h6", "mt-2", "p-2", "d-flex", "align-items-center");
-
-      const categoryIconContainer = document.createElement("div");
-      categoryIconContainer.classList.add("p-3", categoryColor, "icon", "d-flex", "me-2", "justify-content-center", "align-items-center", "rounded-circle");
-
-      const categoryIcon = document.createElement("span");
-      categoryIcon.classList.add("mdi", categoryIconClass, "h4", "mb-0");
-
-      const categoryLabel = document.createElement("span");
-      categoryLabel.classList.add("fw-bold");
-      categoryLabel.textContent = capitalizeText(item.category);
-
-      categoryIconContainer.appendChild(categoryIcon);
-      categoryContainer.appendChild(categoryIconContainer);
-      categoryContainer.appendChild(categoryLabel);
-      // #endregion
-
-      // #region datetime
-      const datetimeContainer = document.createElement("div");
-      datetimeContainer.classList.add("date-column", "fw-normal", "h6", "mt-2", "p-2");
-      datetimeContainer.textContent = item?.date;
-      // #endregion
-
-      // #region Build item
-      itemContainer.appendChild(itemNumber);
-      itemContainer.appendChild(itemTransactionTypeContainer);
-      itemContainer.appendChild(amountContainer);
-      itemContainer.appendChild(categoryContainer);
-      itemContainer.appendChild(datetimeContainer);
-      // #endregion
-
-      // Insert completed item in list
-      transactionList.appendChild(itemContainer);
-    }, index * 100)
-  });
-}
-
-
-const getAllTransactions = () => {
-  const expenses = getExpenses();
-  const incomes = getIncomes();
-
-  const transactions = expenses.concat(incomes);
-  return transactions;
-}
-
-const iconColor = (value) => {
-  const tag = value.toLowerCase();
-  const color = colors[tag];
-  if (!color) {
-    return "unknow-icon";
-  }
-  return color;
-}
-
-const iconClass = (value) => {
-  const tag = value.toLowerCase();
-  const icon = icons[tag];
-  if (!icon) {
-    return "mdi-help-circle-outline"
-  }
-  return icon;
-}
-
-const capitalizeText = (text) => {
-  const firstLetter = text.charAt(0);
-  const rest = text.slice(1);
-  return firstLetter.toUpperCase() + rest;
-}
-
-const colors = {
-  "sueldo": "salary-icon",
-  "transferencia bancaria": "bank-transfer-icon",
-  "ahorros": "savings-icon",
-  "otros": "other-icon",
-  "supermercado": "groceries-icon",
-  "educación": "education-icon",
-  "entretenimiento": "entertainment-icon",
-  "salud": "health-icon",
-  "servicios públicos": "utilities-icon"
-};
-
-const icons = {
-  "sueldo": "mdi-cash-multiple",
-  "transferencia bancaria": "mdi-bank-transfer",
-  "ahorros": "mdi-piggy-bank",
-  "otros": "mdi-dots-horizontal",
-  "supermercado": "mdi-cart",
-  "educación": "mdi-school",
-  "entretenimiento": "mdi-movie",
-  "salud": "mdi-hospital",
-  "servicios públicos": "mdi-face-agent"
-};
-*/
-
